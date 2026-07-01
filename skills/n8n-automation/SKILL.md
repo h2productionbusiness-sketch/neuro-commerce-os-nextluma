@@ -14,11 +14,15 @@ tool stack). It runs on your machine at **http://localhost:5678** and the plugin
 - **`trigger_n8n_workflow`** — POST a payload to an n8n webhook (localhost-restricted by default).
 - Status is also surfaced by `install_n8n` (`/healthz` probe of `N8N_BASE_URL`).
 
-## Install & run (Node route — you have Node ≥ 22.22)
+## Install & run (Node route)
 ```bash
-npm install -g n8n@latest     # already installed on this machine (v2.28.4)
+npm install -g n8n@1          # use the STABLE 1.x line (installed here: v1.123.62)
 n8n start                      # serves http://localhost:5678  (set N8N_SECURE_COOKIE=false on localhost)
 ```
+Or double-click **`automation/n8n/start-n8n.cmd`**.
+> ⚠️ **Version caveat:** n8n **2.28.x** ships a broken dependency tree (mismatched `@langchain/core`,
+> `./utils/uuid` exports error) that fails to boot on both Node 22 and 24. Stay on the **1.x** line until
+> 2.x is fixed. 1.x runs fine on your global Node 24.
 Docker fallback: `docker run -d --name n8n -p 5678:5678 -v n8n_data:/home/node/.n8n -e N8N_SECURE_COOKIE=false docker.n8n.io/n8nio/n8n`.
 Keep it running in its own terminal (or install as a service / `pm2 start n8n`).
 

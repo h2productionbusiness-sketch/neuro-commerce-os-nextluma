@@ -47,9 +47,9 @@ export async function triggerWebhook(url, payload) {
 // OS-aware local install + start guidance (Node route preferred since the user has Node; Docker fallback).
 export function installGuide(os = "windows") {
   const node = {
-    install: "npm install -g n8n@latest",
-    start: "n8n start   # opens http://localhost:5678",
-    note: "Requires Node >= 22.22 (you have it). First start builds the local SQLite DB in ~/.n8n.",
+    install: "npm install -g n8n@1   # STABLE 1.x — 2.28.x has a broken @langchain/core dep that won't boot",
+    start: "n8n start   # opens http://localhost:5678 (or run automation/n8n/start-n8n.cmd)",
+    note: "Runs on Node 24. Avoid n8n@2.28.x (dependency-tree bug). First start builds the SQLite DB in ~/.n8n.",
   };
   const dockerCmd = os === "windows"
     ? 'docker run -d --restart unless-stopped --name n8n -p 5678:5678 -v n8n_data:/home/node/.n8n -e N8N_SECURE_COOKIE=false docker.n8n.io/n8nio/n8n'

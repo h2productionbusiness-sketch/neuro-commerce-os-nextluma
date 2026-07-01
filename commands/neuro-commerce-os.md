@@ -23,19 +23,26 @@ this plugin's own components** and ignore any similarly-named ones from other ma
   plugin and will produce inconsistent results. If you ever notice a non-`neuro-commerce-os:` skill
   about to run for this work, stop and use the `neuro-commerce-os:` equivalent instead.
 
-## Boot sequence
-1. Say: "▶ Neuro-Commerce OS online — running the `neuro-commerce-os` plugin (13 skills, 5 agents,
-   19 MCP tools). Source-of-truth docs loaded."
-2. If `$ARGUMENTS` names a phase or "Full OS", go straight there. Otherwise show the menu:
+## Boot sequence (choice architecture — you propose, the Commander disposes)
+1. Say: "▶ Neuro-Commerce OS online — running the `neuro-commerce-os` plugin. Source-of-truth docs loaded."
+2. **Client identification** (use the `client-memory` skill):
+   - **[A] New client** — start fresh · **[B] Existing client** — load from `clients/<slug>/` ·
+     **[C] Continue previous session** (read `session-log.md`) · **[D] Demo (NextLuma)**.
+   - If a client is found in memory, summarize what's known + which phases are complete; **never re-ask recorded facts.**
+3. **Asset inventory** — proactively ask which the user can provide (record "none" + use fallbacks):
+   logo · brand guidelines · financials (AOV/LTV/margin) · website · socials · Google Maps · existing content · customer list · competitors.
+4. **Execution mode:** **[A] Autonomous** (you do the work, user only chooses — see `/auto-phase1`) ·
+   **[B] Guided** (approve each deliverable) · **[C] Hybrid** (autonomous with checkpoints).
+5. **Phase selection** (skip if `$ARGUMENTS` already names one or "Full OS"):
    - **[1] Full OS** — all 5 phases, sequential (feedback loop)
-   - **[2] Phase 1** — Neuro-Commerce Bible · agent `neuro-commerce-os:the-architect`
+   - **[2] Phase 1** — Neuro-Commerce Bible · `neuro-commerce-os:the-architect` (add `--auto` → `/auto-phase1`)
    - **[3] Phase 2** — NeuroBrand OS · `…:the-brand-architect`
    - **[4] Phase 3** — Kontent Kreation · `…:the-content-engineer`
    - **[5] Phase 4** — Universal Meta Ads · `…:the-ads-engineer`
    - **[6] Phase 5** — Predictive Growth · `…:the-growth-orchestrator`
-   - **[7] Diagnose a reel** — `/diagnose-reel`
-   - **[8] Custom**
-3. Ask for client name + industry if not known.
+   - **[7] Diagnose a reel** — `/diagnose-reel` · **[8] Self-improve** — `/learn` · **[9] Custom**
+6. Ask for client name + industry if not known. Present choices as menus; confirm major decisions; save
+   every choice to `clients/<slug>/decisions.md` (see `client-memory`).
 
 ## Phase routing (tool-first — these names are unique, so no collision)
 | Phase | Start with this MCP tool | Then this plugin skill |
@@ -55,6 +62,11 @@ The bundled `knowledge/` docs are canonical — read via `nco://knowledge/...` r
 plugin's `knowledge/` folder, and reproduce them exactly.
 
 ## Interactive commands
-`/phase-1` `/phase-2` `/phase-3` `/phase-4` `/phase-5` · `/diagnose-reel` · `/status` · `/deliverables` · `/qa` · `/export`
+`/auto-phase1` · `/phase-1` `/phase-2` `/phase-3` `/phase-4` `/phase-5` · `/diagnose-reel` · `/learn` · `/status` · `/deliverables` · `/qa` · `/export`
+
+## Memory & self-improvement
+Use the `client-memory` skill to load/save client state across sessions (`clients/<slug>/`), and `/learn`
+for the self-improvement cycle. See `nco://knowledge/system/memory-and-learning.md` and
+`nco://knowledge/system/agent-roster.md` (the full role crew, performed by the 5 phase agents).
 
 Begin now.
