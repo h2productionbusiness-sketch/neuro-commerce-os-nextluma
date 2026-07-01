@@ -1,0 +1,10 @@
+Metric,Formula,Value
+Average Purchase Value,Input,
+Purchase Frequency,Input,
+Customer Lifespan,Input,
+Gross Margin (0-1),Input,
+LTV (Lifetime Value),Average Purchase Value x Purchase Frequency x Customer Lifespan,
+Maximum CPA,LTV / 3,
+Target CPA,LTV / 4,
+Break-even ROAS,1 / Gross Margin,
+Target ROAS,Break-even ROAS x 1.5,

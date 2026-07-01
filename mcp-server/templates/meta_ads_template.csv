@@ -1,0 +1,4 @@
+Ad_Set_Name,Campaign_Objective,Temperature,Archetype,Goal,Placement,Audience_Details,Exclusions,Creative_URL,Headline,Primary_Text,CTA,Daily_Budget,Bid_Strategy,Frequency_Cap
+COLD_Pragmatist_VideoViews_FBFeed_Global_30-45,Awareness,Cold,Pragmatist,Video Views,FB Feed,"Interest: Project Management Software, Salesforce",None,,,"",,25,Lowest Cost,
+WARM_Pragmatist_LeadGen_IGFeed_Global_30-45,Consideration,Warm,Pragmatist,Lead Gen,IG Feed,Video Viewers (25%+),Exclude last 3 days of site visitors,,,"",,35,Cost Cap (Moderate),2-3/day
+HOT_Pragmatist_Conversions_FBFeed_Global_30-45,Conversion,Hot,Pragmatist,Conversions,FB Feed,Cart Abandoners,Exclude recent converters (optional),,,"",,50,Cost Cap (Aggressive),3-4/day

@@ -1,0 +1,19 @@
+# OS / editor cruft
+.DS_Store
+Thumbs.db
+*.swp
+
+# Backups & scratch
+*.bak
+*.tmp
+_nco_loose_backup_*/
+
+# Large prebuilt bundle (rebuild from source; keep repo lean)
+neuro-commerce-os.mcpb
+
+# Logs
+*.log
+
+# NOTE: mcp-server/node_modules IS committed on purpose so the plugin runs
+# out-of-the-box when installed from this marketplace (Claude Code does not
+# run `npm install` on plugin install). Do not add it here.

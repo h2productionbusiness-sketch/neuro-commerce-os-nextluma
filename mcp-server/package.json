@@ -1,0 +1,24 @@
+{
+  "name": "neuro-commerce-os-mcp",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Complete Neuro-Commerce OS execution engine — MCP server orchestrating the NextLuma 4-phase framework (Diagnostic → Brand → Content → Ads) with free/professional tool fallbacks.",
+  "type": "module",
+  "main": "src/index.js",
+  "bin": {
+    "neuro-commerce-os-mcp": "src/index.js"
+  },
+  "scripts": {
+    "start": "node src/index.js",
+    "selfcheck": "node src/index.js --selfcheck"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.0.4",
+    "zod": "^3.23.8"
+  },
+  "author": "NextLuma Agency — System Architect",
+  "license": "UNLICENSED"
+}

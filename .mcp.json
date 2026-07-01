@@ -1,0 +1,17 @@
+{
+  "mcpServers": {
+    "neuro-commerce-os": {
+      "command": "node",
+      "args": ["${CLAUDE_PLUGIN_ROOT}/mcp-server/src/index.js"],
+      "env": {
+        "SERPAPI_API_KEY": "",
+        "TAVILY_API_KEY": "",
+        "RECRAFT_API_KEY": "",
+        "LEONARDO_API_KEY": "",
+        "SD_API_URL": "",
+        "META_ACCESS_TOKEN": "",
+        "META_AD_ACCOUNT_ID": ""
+      }
+    }
+  }
+}
