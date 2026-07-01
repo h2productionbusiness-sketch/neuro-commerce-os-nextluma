@@ -2,8 +2,8 @@
   "dxt_version": "0.1",
   "name": "neuro-commerce-os",
   "display_name": "Neuro-Commerce OS",
-  "version": "1.3.0",
-  "description": "Complete Neuro-Commerce OS engine — 19 MCP tools driving the NextLuma 5-phase framework (Diagnostic → Brand → Content → Ads → Growth) plus video/social reel diagnostics. Free-tool fallbacks built in.",
+  "version": "1.8.1",
+  "description": "Complete Neuro-Commerce OS engine — 26 MCP tools driving the NextLuma 5-phase framework (Diagnostic → Brand → Content → Ads → Growth) plus video/social reel diagnostics, local n8n post-click automation, and NextLuma PowerPoint decks. Free-tool fallbacks built in.",
   "author": {
     "name": "NextLuma Agency"
   },
@@ -22,7 +22,10 @@
         "LEONARDO_API_KEY": "",
         "SD_API_URL": "",
         "META_ACCESS_TOKEN": "",
-        "META_AD_ACCOUNT_ID": ""
+        "META_AD_ACCOUNT_ID": "",
+        "N8N_BASE_URL": "http://localhost:5678",
+        "N8N_WEBHOOK_URL": "",
+        "ALLOW_EXTERNAL_WEBHOOKS": ""
       }
     }
   },
@@ -36,6 +39,9 @@
     {"name": "generate_image_asset"}, {"name": "generate_voiceover"},
     {"name": "calculate_virality_score"}, {"name": "detect_creative_fatigue"},
     {"name": "score_churn_risk"}, {"name": "diagnose_video_content"},
-    {"name": "score_social_content"}
+    {"name": "score_social_content"}, {"name": "get_nextluma_design_system"},
+    {"name": "get_phase1_intake"}, {"name": "score_persona_readiness"},
+    {"name": "get_phase1_deck_plan"}, {"name": "install_n8n"},
+    {"name": "configure_n8n_webhook"}, {"name": "trigger_n8n_workflow"}
   ]
 }

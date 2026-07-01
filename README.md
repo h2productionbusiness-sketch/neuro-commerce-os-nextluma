@@ -1,4 +1,4 @@
-# 🧠 Neuro-Commerce OS · v1.8.0
+# 🧠 Neuro-Commerce OS · v1.8.1
 
 **A complete, self-contained business operating system for Claude — Diagnostic → Brand → Content → Ads → Growth.**
 Built by NextLuma Agency. Ships as a Claude Code plugin **and** a standalone MCP server, executes the
