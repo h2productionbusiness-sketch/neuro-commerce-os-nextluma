@@ -64,9 +64,10 @@ plugin's `knowledge/` folder, and reproduce them exactly.
 ## Interactive commands
 `/auto-phase1` · `/phase-1` `/phase-2` `/phase-3` `/phase-4` `/phase-5` · `/diagnose-reel` · `/learn` · `/status` · `/deliverables` · `/qa` · `/export`
 
-## Memory & self-improvement
-Use the `client-memory` skill to load/save client state across sessions (`clients/<slug>/`), and `/learn`
-for the self-improvement cycle. See `nco://knowledge/system/memory-and-learning.md` and
-`nco://knowledge/system/agent-roster.md` (the full role crew, performed by the 5 phase agents).
+## Memory, handoffs & self-improvement
+- **Memory:** `client-memory` skill loads/saves client state across sessions (`clients/<slug>/`); `/learn` runs the self-improvement cycle. See `nco://knowledge/system/memory-and-learning.md`.
+- **Continuity:** at each phase N≥2, read upstream outputs and map them per `nco://knowledge/system/phase-handoffs.md` (state which upstream artifacts you're consuming before proceeding).
+- **Choices:** full 82-point menu set in `nco://knowledge/system/choice-architecture.md` (each with an AI-recommended default; Autonomous mode pre-picks defaults, pausing only at consent gates).
+- **Crew:** `nco://knowledge/system/agent-roster.md` — the full role crew, performed by the 5 phase agents.
 
 Begin now.
