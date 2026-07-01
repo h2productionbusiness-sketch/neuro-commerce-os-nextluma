@@ -9,7 +9,7 @@
       "name": "neuro-commerce-os",
       "source": "./",
       "description": "Complete Neuro-Commerce OS: 5 phases, 18 skills, 22 agents, local n8n automation, NextLuma PowerPoint decks, memory + self-improvement. Standalone MCP server with 26 tools, 34 resources, 4 prompts.",
-      "version": "1.8.1",
+      "version": "1.8.2",
       "category": "marketing",
       "keywords": ["neuro-commerce", "brand", "persona", "meta-ads", "content", "growth"]
     }

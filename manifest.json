@@ -2,7 +2,7 @@
   "dxt_version": "0.1",
   "name": "neuro-commerce-os",
   "display_name": "Neuro-Commerce OS",
-  "version": "1.8.1",
+  "version": "1.8.2",
   "description": "Complete Neuro-Commerce OS engine — 26 MCP tools driving the NextLuma 5-phase framework (Diagnostic → Brand → Content → Ads → Growth) plus video/social reel diagnostics, local n8n post-click automation, and NextLuma PowerPoint decks. Free-tool fallbacks built in.",
   "author": {
     "name": "NextLuma Agency"
