@@ -1,111 +1,122 @@
-# 🧠 Neuro-Commerce OS
+# 🧠 Neuro-Commerce OS · v1.8.0
 
 **A complete, self-contained business operating system for Claude — Diagnostic → Brand → Content → Ads → Growth.**
-Built by NextLuma Agency. Ships as a Claude Code plugin **and** a standalone MCP server, and executes
-the entire NextLuma 5-phase framework from the bundled source documents.
+Built by NextLuma Agency. Ships as a Claude Code plugin **and** a standalone MCP server, executes the
+entire NextLuma 5-phase framework from the bundled source documents, and automates the post-click
+pipeline with local n8n.
 
 ```
-PHASE 1  Neuro-Commerce Bible            18-section strategic diagnostic + persona architecture
+PHASE 1  Neuro-Commerce Bible            18-section diagnostic + persona architecture → NextLuma PowerPoint decks
 PHASE 2  NeuroBrand Operating System     18 deliverables across 6 sections → Brand Book
 PHASE 3  Kontent Kreation + Inception    neuro-cinematic content pipeline (Phases 0–12)
-PHASE 4  Universal Meta Ads System       10 T-META templates, Iron Dome QA, safe deployment
-PHASE 5  Predictive Growth Intelligence  forecasting, VPS, churn/fatigue, knowledge graph + loop
+PHASE 4  Universal Meta Ads System       10 T-META templates, Iron Dome QA, n8n post-click automation
+PHASE 5  Predictive Growth Intelligence  forecasting, VPS, churn/fatigue, knowledge graph + learning loop
 ```
 
-**13 skills · 5 specialized agents** (The Architect → Brand Architect → Content Engineer →
-Ads Engineer → Growth Orchestrator, with a feedback loop) **+ video/social reel diagnostics**.
-See `AGENTS.md`.
+**18 skills · 22 agents** (5 phase commanders + The Orchestrator + 16 consolidated sub-crews) **+ video/
+social reel diagnostics + local n8n automation + file-based memory & self-improvement.** The master
+framework's 193 roles / 82 skills are consolidated ~10× with every capability preserved — see
+`knowledge/system/agent-roster.md` and `knowledge/system/skill-capability-map.md`.
 
 ## What's inside
 
 ```
 neuro-commerce-os/
-├── .claude-plugin/
-│   ├── plugin.json            # plugin manifest
-│   └── marketplace.json       # one-plugin marketplace (for install)
+├── .claude-plugin/            # plugin.json + marketplace.json
 ├── .mcp.json                  # wires the bundled MCP server (env keys optional)
-├── commands/                  # /neuro-commerce-os, /phase-1..5, /status, /deliverables, /qa, /export
-├── skills/                    # 12 core skills + inception-codex + video-content-diagnostics
-│                              #   (bible, persona, market-intel, pricing, brand, semiotic, kontent,
-│                              #   hooks, meta-ads, predictive, customer-experience, knowledge-graph)
-├── agents/                    # The Architect, Brand Architect, Content Engineer, Ads Engineer,
-│                              #   Growth Orchestrator (+ AGENTS.md collaboration matrix)
-├── knowledge/                 # ★ the 13 NextLuma source docs (canonical deliverable templates)
-└── mcp-server/                # the standalone Neuro-Commerce OS MCP server (Node)
-    ├── src/                   # index, tools (19), resources (24), prompts (4), lib/ (search/image/tts/economics/meta/growth)
+├── commands/                  # /neuro-commerce-os, /auto-phase1, /phase-1..5, /diagnose-reel,
+│                              #   /learn, /status, /deliverables, /qa, /export
+├── skills/                    # 18 skills: bible, persona-architect, market-intelligence, pricing,
+│                              #   strategic-diagnostics, brand-architecture, semiotic, kontent,
+│                              #   inception-codex, hook-attention, meta-ads, predictive-growth,
+│                              #   customer-experience, knowledge-graph, video-content-diagnostics,
+│                              #   tool-selector, n8n-automation, client-memory
+├── agents/                    # 22 agents: the-architect/-brand-architect/-content-engineer/
+│                              #   -ads-engineer/-growth-orchestrator/-orchestrator + 16 p1..p5 sub-crews
+├── knowledge/                 # ★ 13 NextLuma source docs + design/ (NextLuma color system + deck specs)
+│                              #   + system/ (handoffs, choice-architecture, memory, agent roster)
+├── automation/n8n/            # importable post-click workflow + start-n8n launcher
+└── mcp-server/                # the standalone MCP server (Node)
+    ├── src/                   # index, tools (26), resources (34), prompts (4),
+    │                          #   lib/ (search, image, tts, economics, meta, growth, video, n8n,
+    │                          #         persona-scoring, deckplan, templates)
     └── templates/             # CSV + checklist templates served as resources
 ```
 
-The **`knowledge/`** folder is the source of truth: the skills and tools always point Claude back to
-these documents so the deliverables are reproduced **exactly** as specified by NextLuma.
+The **`knowledge/`** folder is the source of truth: skills and tools point Claude back to these
+documents so deliverables are reproduced **exactly** as specified by NextLuma.
 
 ## The MCP server
 
-`neuro-commerce-os-mcp` exposes **19 tools**, **24 resources**, and **4 prompts**.
+`neuro-commerce-os-mcp` exposes **26 tools**, **34 resources**, and **4 prompts**.
 
 | # | Tool | Purpose |
 |---|------|---------|
-| 1 | `execute_phase1_diagnostic` | Run the Neuro-Commerce Bible diagnostic |
+| 1 | `execute_phase1_diagnostic` | Run the Neuro-Commerce Bible diagnostic (`mode:"auto"` for full orchestration) |
 | 2 | `execute_phase2_brand_architecture` | Build the NeuroBrand OS (18 deliverables) |
 | 3 | `execute_phase3_content_production` | Neuro-cinematic content (Phases 0–12) |
 | 4 | `execute_phase4_ads_campaign` | Meta Ads system (10 T-META templates) |
-| 5 | `generate_persona_architecture` | 9W+H persona + archetype + psychometrics |
-| 6 | `analyze_market_intelligence` | Competitors, signals, congregations (SerpAPI→Tavily→manual) |
-| 7 | `create_content_strategy` | Content OS + emotional sequencing + calendar |
-| 8 | `deploy_ads_campaign` | Manifest / Python / live API deployment |
-| 9 | `generate_learning_loop` | Update personas/hooks/hypotheses from results |
-| 10 | `calculate_unit_economics` | One-Third Rule: LTV, Max/Target CPA, Break-even/Target ROAS |
-| 11 | `run_iron_dome_qa` | Phase 4 pre-launch QA (PASS/WARNING/FAIL) |
-| 12 | `generate_image_asset` | Recraft→Leonardo→Stable Diffusion→ready-prompt |
-| 13 | `generate_voiceover` | edge-tts→voiceover spec |
-| 14 | `execute_phase5_growth_intelligence` | Predictive Growth & Learning Loop orchestration |
+| 5 | `execute_phase5_growth_intelligence` | Predictive Growth & Learning Loop orchestration |
+| 6 | `generate_persona_architecture` | 9W+H persona + archetype + psychometrics |
+| 7 | `analyze_market_intelligence` | Competitors, signals, congregations (SerpAPI→Tavily→manual) |
+| 8 | `create_content_strategy` | Content OS + emotional sequencing + calendar |
+| 9 | `deploy_ads_campaign` | Manifest / Python / live API deployment |
+| 10 | `generate_learning_loop` | Update personas/hooks/hypotheses from results |
+| 11 | `calculate_unit_economics` | One-Third Rule: LTV, Max/Target CPA, Break-even/Target ROAS |
+| 12 | `run_iron_dome_qa` | Phase 4 pre-launch QA (PASS/WARNING/FAIL) |
+| 13 | `generate_image_asset` | Recraft→Leonardo→Stable Diffusion→ready-prompt |
+| 14 | `generate_voiceover` | edge-tts→voiceover spec |
 | 15 | `calculate_virality_score` | Virality Probability Score (6-factor VPS) |
 | 16 | `detect_creative_fatigue` | Creative fatigue signals + fix (Inception Codex 8.4) |
 | 17 | `score_churn_risk` | Churn-risk band + retention action |
-| 18 | `diagnose_video_content` | Reel/video diagnosis plan — drives installed video MCP tools + Inception Codex checklist |
+| 18 | `diagnose_video_content` | Reel/video diagnosis plan — drives installed video MCP tools |
 | 19 | `score_social_content` | Hook Performance (11.2) + Content Scorecard (11.3) + Virality/CPS (11.4) |
+| 20 | `get_nextluma_design_system` | NextLuma palette + Phase 1 deck spec (exact 106/77 slide plans) |
+| 21 | `get_phase1_intake` | 42-question Client Intelligence Questionnaire + 90-min Discovery guide |
+| 22 | `score_persona_readiness` | Purchase-Readiness % (Intent 40 · Pain 30 · Demo 20 · Behavioral 10) |
+| 23 | `get_phase1_deck_plan` | Deterministic slide plan for the Bible (106) + Persona (77) decks |
+| 24 | `install_n8n` | Local n8n install commands + live reachability status |
+| 25 | `configure_n8n_webhook` | n8n setup + importable post-click workflow JSON |
+| 26 | `trigger_n8n_workflow` | POST to an n8n webhook (localhost-restricted; SSRF-guarded) |
 
-**Video / social diagnostics:** the `video-content-diagnostics` skill + `/diagnose-reel` command drive
-your installed video-analysis MCP servers (`video-use`, `design-extract`, `mcp-video`,
-`mcp-ffmpeg-helper`, `video-analyzer`, …) to extract frames + timestamps + transcript from a reel,
-then diagnose hook (0–3s), retention/drop-off, pacing, pattern interrupts, and virality.
-
-Resources: `nco://template/<name>` (named templates) and `nco://knowledge/<phase>/<file>` (full docs).
+Resources: `nco://template/<name>`, `nco://knowledge/<phase-or-system>/<file>`.
 Prompts: `start_neuro_commerce_os`, `build_persona_architecture`, `generate_creative_brief`, `deploy_ads_manifest`.
 
+## Highlights
+- **Phase 1 → NextLuma PowerPoint decks.** `Neuro-Commerce-Bible.pptx` (106 slides) + `Persona-<name>.pptx`
+  (77 slides), exact docx structure, styled with the NextLuma color system ("Cold Architecture × Living Intelligence").
+- **Automated Phase 1.** `/auto-phase1` runs tool-selection → guided interview → market research → analyst
+  (with persona purchase-readiness %) → decks, pausing only at consent gates.
+- **Local n8n automation.** Install + import the post-click pipeline (Webhook → Lead Scoring → AI voice /
+  Meta CAPI offline-conversion). Use n8n **1.x** — 2.28.x has a broken `@langchain/core` dep.
+- **Memory & self-improvement.** `client-memory` persists client state across sessions; `/learn` runs the
+  reflection/knowledge-graph cycle. See `knowledge/system/memory-and-learning.md`.
+
 ### Free-tool fallback logic (built in)
-- **Search:** SerpAPI → Tavily → manual research brief.
-- **Image:** Recraft → Leonardo → local Stable Diffusion (`SD_API_URL`) → ready-to-paste prompt.
-- **Voiceover:** edge-tts → production-ready voiceover spec.
-- **Meta deploy:** live Graph API (if `META_ACCESS_TOKEN`) → Python script → manifest + Ads Manager guide.
+- **Search:** SerpAPI → Tavily → manual brief · **Image:** Recraft → Leonardo → local Stable Diffusion → ready-prompt
+- **Voiceover:** edge-tts → spec · **Meta deploy:** live Graph API → Python script → manifest + Ads Manager guide
 
 All API keys are **optional** — with none set, every tool degrades gracefully to a usable manual output.
 
-## Quick start
+## Install (managed plugin from this repo)
 
-See **[INSTALL.md](INSTALL.md)**. In short:
-
-```bash
-# 1. install the MCP server deps
-cd mcp-server && npm install && npm run selfcheck   # prints 19 tools / 24 resources / 4 prompts
-
-# 2. add the marketplace + plugin in Claude Code
-/plugin marketplace add "C:/Users/houce/Documents/NextLuma Agency/Claude plugin/neuro-commerce-os"
+```text
+/plugin marketplace add https://github.com/h2productionbusiness-sketch/neuro-commerce-os
 /plugin install neuro-commerce-os
-
-# 3. run it
-/neuro-commerce-os Full OS
+```
+Then build the MCP server deps once:
+```bash
+cd mcp-server && npm install && npm run selfcheck   # { ok: true, tools: 26, resources: 34, prompts: 4 }
 ```
 
 ## Usage
+- `/neuro-commerce-os` — master orchestrator (client identification → asset inventory → execution mode → phase).
+- `/auto-phase1 [client] [industry]` — fully automated Phase 1.
+- `/phase-1` … `/phase-5` — run a single phase · `/diagnose-reel <file-or-url>` — reel teardown.
+- `/learn` — self-improvement cycle · `/status` · `/deliverables` · `/qa [1-5]` · `/export [md|notion|pptx|csv]`.
 
-- `/neuro-commerce-os` — master orchestrator (menu or `Full OS` / `Phase N`).
-- `/phase-1` … `/phase-5` — run a single phase.
-- `/diagnose-reel <file-or-url> [platform] [own|competitor]` — teardown a reel's hook/retention/virality.
-- `/status` · `/deliverables` · `/qa [1-5]` · `/export [md|notion|pptx|csv]`.
+Optional env keys (`.mcp.json`): `SERPAPI_API_KEY`, `TAVILY_API_KEY`, `RECRAFT_API_KEY`, `LEONARDO_API_KEY`,
+`SD_API_URL`, `META_ACCESS_TOKEN`, `META_AD_ACCOUNT_ID`, `N8N_BASE_URL`, `N8N_WEBHOOK_URL`.
 
-Optional API keys live in `.mcp.json` (or your environment): `SERPAPI_API_KEY`, `TAVILY_API_KEY`,
-`RECRAFT_API_KEY`, `LEONARDO_API_KEY`, `SD_API_URL`, `META_ACCESS_TOKEN`, `META_AD_ACCOUNT_ID`.
-
-> Security: the system never asks for your Meta access token in chat. For API deployment it generates a
-> script you run yourself, or it uses the keys you placed in your environment.
+> Security: the system never asks for your Meta access token in chat. n8n webhook targets are restricted
+> to localhost unless `ALLOW_EXTERNAL_WEBHOOKS=1`.
