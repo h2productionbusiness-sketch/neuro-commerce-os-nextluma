@@ -28,13 +28,13 @@ Or read them via the MCP server resources: `nco://knowledge/phase-1/...` and
 - `generate_persona_architecture` — 9W+H + archetype + psychometrics + AI export card.
 
 ## Execution sequence
-1. **Project Setup & Intelligence Scan** — present the Client Intelligence Questionnaire (8 parts: Business, Customer, Competition, Financials, Operations, Goals & Fears, Digital Presence, Consent — ~42 questions).
-2. **Discovery Session** — 90-minute 9W+H interview. Produce: Key Insights, Hypotheses, Gaps, Initial Persona Hypotheses, Core Problem Statement.
+1. **Project Setup & Intelligence Scan** — present the Client Intelligence Questionnaire via `get_phase1_intake` (8 parts: Business, Customer, Competition, Financials, Operations, Goals & Fears, Digital Presence, Consent — 42 questions).
+2. **Discovery Session** — 90-minute 9W+H interview (the guide from `get_phase1_intake`). Produce: Key Insights, Hypotheses, Gaps, Initial Persona Hypotheses, Core Problem Statement.
 3. **Brutal Truth Assessment** — Core Problem Statement; 5 Whys root-cause; Quantum Score Dashboard (Financial Health / Operational Efficiency / Brand Authority / Growth Velocity → /100); Financial Baseline Audit (AOV, CAC, LTV, Gross Margin, CAC:LTV; forensic "stolen / sleeping / invisible" money).
 4. **Market Research** — Competitive Benchmarking + Strategic Group Map + deep competitor profiling; Customer Signals; Congregation Discovery (quality score /40 = Activity + Authenticity + Relevance + Size); PESTLE; Trends.
 5. **Social Media Audit** — presence audit, content inventory + Grunt Test, social listening (assumption vs reality).
 6. **Internal Diagnostic** — Business Model Canvas (🟢🟡🔴), VRIO capability mapping, operational audit, value chain.
-7. **Persona & Archetype Development** — full 9W+H for primary; condensed secondary; anti-persona. Use the `persona-architect` skill.
+7. **Persona & Archetype Development** — full 9W+H for primary; condensed secondary; anti-persona (use the `persona-architect` skill). Identify ALL distinct segments and score each with **`score_persona_readiness`** (Purchase Readiness %); the Bible's persona section (4.x) lists every persona with its readiness %, ranked hot→cold. Each persona also gets its own `Persona-<name>.pptx` deck.
 8. **Strategic Synthesis** — SWOT/TOWS, Blue Ocean ERRC, one-page Blueprint.
 9. **Assemble the Bible** — Sections 0–17 plus appendix. Include Section 0 Executive Meta Layer (Diagnostic Metadata, Trust Index) and Section 17 The Path Forward (Two Paths, Phase 2 preview).
 

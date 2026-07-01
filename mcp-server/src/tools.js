@@ -9,6 +9,8 @@ import { unitEconomics, BUDGET_ADEQUACY, MIN_AUDIENCE, TEMPERATURE } from "./lib
 import { adSetName, splitBudget, buildManifestCsv, adsManagerInstructions, deployPythonScript, metaLiveAvailable, metaCreate } from "./lib/meta.js";
 import { viralityScore, creativeFatigue, churnRisk } from "./lib/growth.js";
 import { VIDEO_TOOLS, SOCIAL_SOURCES, ingestPlan, hookPerformance, contentScorecard, viralityAndCps } from "./lib/video.js";
+import { readinessScore, scoreSegments } from "./lib/persona-scoring.js";
+import { biblePlan, personaPlan } from "./lib/deckplan.js";
 import { excerpt, loadKnowledge } from "./lib/templates.js";
 
 const json = (obj) => ({ content: [{ type: "text", text: JSON.stringify(obj, null, 2) }] });
@@ -67,10 +69,25 @@ export const TOOLS = [
         industry: { type: "string" },
         interview_transcript: { type: "string", description: "Discovery session transcript (optional)" },
         questionnaire: { type: "string", description: "Completed Client Intelligence Questionnaire (optional)" },
+        mode: { type: "string", enum: ["guided", "auto"], default: "guided", description: "'auto' runs the full automated Phase 1 orchestration end-to-end" },
       },
       required: ["client_name", "industry"],
     },
-    handler: async (a) => json({
+    handler: async (a) => (a.mode === "auto") ? json({
+      phase: "Phase 1 — AUTOMATED ORCHESTRATION",
+      client: a.client_name, industry: a.industry,
+      run_via: "neuro-commerce-os:the-orchestrator agent (or /auto-phase1)",
+      pipeline: [
+        "1. TOOL SELECTOR — invoke `neuro-commerce-os:tool-selector`: scan MCPs (search, PowerPoint/pptx, Notion, Miro, video), report available, recommend + install (with consent) any missing.",
+        "2. DATA COLLECTION — `get_phase1_intake`: ask the 42-question questionnaire, then run the 90-min discovery session (9W+H bank). Store answers structured.",
+        "3. MARKET INTELLIGENCE — `analyze_market_intelligence`: competitors, customer signals, congregations (score /40).",
+        "4. ANALYST — Brutal Truth (5 Whys, Quantum Score, Financial Audit) → Persona Architecture (all segments) → `score_persona_readiness` (Purchase Readiness %) → Strategic Synthesis (SWOT/TOWS/ERRC/Blueprint) → Opportunity € + ROI.",
+        "5. DELIVERABLES — `get_phase1_deck_plan` + `get_nextluma_design_system`: build `Neuro-Commerce-Bible.pptx` (106 slides) and one `Persona-<name>.pptx` (77 slides) per persona, NextLuma-styled, via the PowerPoint MCP / pptx skill.",
+        "6. COMPLETE — summarize findings + deliverable locations; ask: 'Proceed to Phase 2?'",
+      ],
+      gates: "Confirm each install before running it; confirm the persona list before generating per-persona decks. Never install code silently.",
+      outputs: ["Neuro-Commerce-Bible.pptx (106 slides)", "Persona-<name>.pptx (77 slides each)", "market_intelligence.md", "phase1_data.json"],
+    }) : json({
       phase: "Phase 1 — Neuro-Commerce Bible",
       client: a.client_name, industry: a.industry,
       knowledge_resources: [
@@ -604,6 +621,75 @@ export const TOOLS = [
         status_remap_no_warm_tones: { strong: "#4CD7FF", neutral: "#6B7280", weak: "#FF4D8D" },
         deck_spec: (a.include_deck_spec === false) ? undefined : excerpt("design/phase-1-deck-spec.md", 6000),
       });
+    },
+  },
+
+  // 21 — Phase 1 client intake (questionnaire + discovery session) ───────────────
+  {
+    name: "get_phase1_intake",
+    description: "Return the Phase 1 client intake instruments: the Client Intelligence Questionnaire (42 questions, 8 parts) and/or the 90-minute Discovery Session guide (agenda + full 9W+H question bank + probing bank + checklists). Use at STEP 1/STEP 2, before building the Bible.",
+    inputSchema: {
+      type: "object",
+      properties: {
+        which: { type: "string", enum: ["questionnaire", "discovery", "both"], default: "both" },
+      },
+    },
+    handler: async (a) => {
+      const which = a.which || "both";
+      const out = { module: "Phase 1 — Client Intake" };
+      if (which === "questionnaire" || which === "both") {
+        out.client_intelligence_questionnaire = loadKnowledge("phase-1/05-client-intelligence-questionnaire.md");
+      }
+      if (which === "discovery" || which === "both") {
+        out.discovery_session_guide = loadKnowledge("phase-1/06-discovery-session-guide.md");
+      }
+      out.resources = [
+        "nco://knowledge/phase-1/05-client-intelligence-questionnaire.md",
+        "nco://knowledge/phase-1/06-discovery-session-guide.md",
+      ];
+      out.flow = "Send the questionnaire → run the 90-min discovery session → extract Key Insights/Hypotheses/Gaps/Persona Hypotheses/Core Problem → Brutal Truth → assemble the Bible.";
+      return json(out);
+    },
+  },
+
+  // 22 — Persona purchase-readiness scoring ─────────────────────────────────────
+  {
+    name: "score_persona_readiness",
+    description: "Score each customer segment's Purchase Readiness % (Intent 40% · Pain frequency 30% · Demographic fit 20% · Behavioral cues 10%). Inputs are 0–10 signal strengths. Returns ranked personas with band + recommended action — for the Bible persona section and the per-persona decks.",
+    inputSchema: {
+      type: "object",
+      properties: {
+        segments: {
+          type: "array",
+          description: "Segments: {persona, archetype, intentSignals, painFrequency, demographicFit, behavioralCues} (each signal 0–10)",
+          items: { type: "object" },
+        },
+      },
+      required: ["segments"],
+    },
+    handler: async (a) => json({
+      formula: "Intent 40% · Pain 30% · Demographic fit 20% · Behavioral cues 10% (each signal 0–10 → 0–100%)",
+      ranked_personas: scoreSegments(a.segments || []),
+    }),
+  },
+
+  // 23 — Deterministic Phase 1 deck plan (exact 106 / 77 slides) ─────────────────
+  {
+    name: "get_phase1_deck_plan",
+    description: "Return the deterministic, ordered slide plan for the Phase 1 decks parsed from the authoritative outlines — every slide with its index, type (section-divider/content), chosen NextLuma master, title, and section. Guarantees the deck matches the docx exactly (Bible 106, Persona 77).",
+    inputSchema: {
+      type: "object",
+      properties: {
+        deck: { type: "string", enum: ["bible", "persona", "both"], default: "both" },
+      },
+    },
+    handler: async (a) => {
+      const deck = a.deck || "both";
+      const out = {};
+      if (deck === "bible" || deck === "both") out.bible = biblePlan();
+      if (deck === "persona" || deck === "both") out.persona = personaPlan();
+      out.instructions = "Build one PPTX slide per plan entry, in order. Title = entry.title; style = entry.master (see phase-1-deck-spec.md); populate content-slide tables verbatim from nco://knowledge/phase-1/01-neuro-commerce-bible.md or …/04-perfect-persona-template.md.";
+      return json(out);
     },
   },
 ];

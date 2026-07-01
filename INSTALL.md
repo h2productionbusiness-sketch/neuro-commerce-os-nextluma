@@ -9,7 +9,7 @@
 ```bash
 cd "C:/Users/houce/Documents/NextLuma Agency/Claude plugin/neuro-commerce-os/mcp-server"
 npm install
-npm run selfcheck      # expect: { ok: true, tools: 19, resources: 24, prompts: 4 }
+npm run selfcheck      # expect: { ok: true, tools: 23, resources: 34, prompts: 4 }
 ```
 
 ## 2. (Optional) Add API keys

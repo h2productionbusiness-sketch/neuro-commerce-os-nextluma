@@ -15,6 +15,8 @@ export const NAMED_TEMPLATES = {
   neuro_commerce_bible_template: join(KNOWLEDGE_DIR, "phase-1", "01-neuro-commerce-bible.md"),
   persona_template_9wh: join(KNOWLEDGE_DIR, "phase-1", "04-perfect-persona-template.md"),
   persona_architect_instruction_set: join(KNOWLEDGE_DIR, "phase-1", "03-persona-architect-instruction-set.md"),
+  client_intelligence_questionnaire: join(KNOWLEDGE_DIR, "phase-1", "05-client-intelligence-questionnaire.md"),
+  discovery_session_guide: join(KNOWLEDGE_DIR, "phase-1", "06-discovery-session-guide.md"),
   brand_os_template: join(KNOWLEDGE_DIR, "phase-2", "02-neurobrand-operating-system.md"),
   brand_deliverables_master_list: join(KNOWLEDGE_DIR, "phase-2", "01-brand-architecture-deliverables.md"),
   content_brief_template: join(KNOWLEDGE_DIR, "phase-3", "03-inception-codex-v10-neuro-cinematic.md"),

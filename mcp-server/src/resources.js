@@ -5,6 +5,8 @@ const NAMED = [
   { name: "neuro_commerce_bible_template", title: "Neuro-Commerce Bible Template (Phase 1)" },
   { name: "persona_template_9wh", title: "9W+H Perfect Persona Template (Phase 1)" },
   { name: "persona_architect_instruction_set", title: "Persona Architect Instruction Set (Phase 1)" },
+  { name: "client_intelligence_questionnaire", title: "Client Intelligence Questionnaire — 42 Q (Phase 1)" },
+  { name: "discovery_session_guide", title: "Discovery Session Guide — 90 min (Phase 1)" },
   { name: "brand_os_template", title: "NeuroBrand Operating System (Phase 2)" },
   { name: "brand_deliverables_master_list", title: "Brand Architecture Deliverables (Phase 2)" },
   { name: "content_brief_template", title: "Inception Codex / NeuroCinematic Brief (Phase 3)" },

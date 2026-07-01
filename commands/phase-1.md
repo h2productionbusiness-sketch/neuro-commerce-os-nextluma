@@ -11,6 +11,10 @@ description: Phase 1 — build the Neuro-Commerce Bible (diagnostic + persona ar
 Execute Phase 1 for: `$ARGUMENTS` — begin by calling `execute_phase1_diagnostic`, then proceed with
 the `neuro-commerce-os:neuro-commerce-bible` skill (and `neuro-commerce-os:persona-architect`).
 
+> **Automated mode:** if `$ARGUMENTS` contains `--auto` (or the user says "run it automatically"),
+> hand off to **`/auto-phase1`** / the `neuro-commerce-os:the-orchestrator` agent instead — it runs the
+> full pipeline (tool selection → interview → research → analyst → NextLuma decks) end-to-end.
+
 Drive it with the MCP server:
 1. `execute_phase1_diagnostic` — orchestration plan + the canonical Bible template.
 2. `analyze_market_intelligence` — competitors, customer signals, congregations.

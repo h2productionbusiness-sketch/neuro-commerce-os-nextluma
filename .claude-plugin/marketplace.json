@@ -9,7 +9,7 @@
       "name": "neuro-commerce-os",
       "source": "./",
       "description": "Complete Neuro-Commerce OS: 5 phases (Bible, NeuroBrand OS, Kontent Kreation, Universal Meta Ads, Predictive Growth), 13 skills, 5 specialized agents, and video/social reel diagnostics. Standalone MCP server with 19 tools, 24 resources, and 4 prompts.",
-      "version": "1.4.1",
+      "version": "1.5.0",
       "category": "marketing",
       "keywords": ["neuro-commerce", "brand", "persona", "meta-ads", "content", "growth"]
     }
