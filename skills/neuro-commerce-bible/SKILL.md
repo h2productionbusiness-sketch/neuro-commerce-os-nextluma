@@ -44,10 +44,18 @@ Phase 1 deliverables are presented as **PowerPoint decks styled with the NextLum
 - **`Neuro-Commerce-Bible.pptx`** — the 18-section diagnostic (100–150 slides).
 - **`Persona-Architecture.pptx`** — primary/secondary/anti-persona (built via the `persona-architect` skill).
 
+**Follow the docx structure EXACTLY.** The decks must reproduce the uploaded Phase 1 docx
+section-for-section and sub-section-for-sub-section — nothing added, merged, dropped, or reordered.
+Build one slide per line of the authoritative outlines:
+- `nco://knowledge/design/phase-1-bible-slide-outline.md` — **106 content slides** (0.1 … 17.5).
+- `nco://knowledge/design/phase-1-persona-slide-outline.md` — **77 content slides** (0.1 … 31).
+Each content slide's title = that exact heading; its table = the exact fields from
+`nco://knowledge/phase-1/01-neuro-commerce-bible.md` (or `…/04-perfect-persona-template.md`), reproduced verbatim.
+
 How to build them:
-1. Call **`get_nextluma_design_system`** (MCP) for the exact palette + the Phase 1 deck spec, or read
-   `${CLAUDE_PLUGIN_ROOT}/knowledge/design/nextluma-color-system.md`, `tokens.json`, and
-   `phase-1-deck-spec.md` (resources `nco://knowledge/design/*`).
+1. Call **`get_nextluma_design_system`** (MCP) for the exact palette + deck spec + the two slide outlines,
+   or read `${CLAUDE_PLUGIN_ROOT}/knowledge/design/nextluma-color-system.md`, `tokens.json`,
+   `phase-1-deck-spec.md`, and the two `phase-1-*-slide-outline.md` files.
 2. Build the decks with the **PowerPoint MCP tools** (`mcp__PowerPoint__By_Anthropic___create_presentation`,
    `add_slide`, `set_slide_title`, `add_text_to_slide`, `insert_image`, `save_presentation`, `export_pdf`)
    or the `pptx` skill — following the slide masters in the deck spec.

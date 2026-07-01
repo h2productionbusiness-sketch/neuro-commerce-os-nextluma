@@ -41,20 +41,24 @@ Phase 1 deliverables are delivered as **PowerPoint decks** styled with the NextL
 - **Type:** clean geometric sans (e.g., Inter/Montserrat/Segoe UI). Titles Architect Navy on light, Pure White on dark. Secondary copy Text Gray only.
 - **Glows/emphasis:** large soft blur of a gradient color behind a hero element — not flat highlights.
 
-## Bible deck map (Sections 0–17 → slides)
-Follow `knowledge/phase-1/01-neuro-commerce-bible.md` exactly; one section-divider slide per section, then one content slide per sub-section table.
-0. Cover · Executive Meta Layer (Diagnostic Metadata, Trust Index — KPI + table)
-1. Business & Strategy (Overview, Brutal Truth, 5 Whys, Quantum Score dashboard, Financial Baseline — KPI slides)
-2. Product/Service Intelligence · 3. Pricing & Monetization · 4. Customer & Behavior (persona summary → detail decks)
-5. Market Intelligence (competitor matrix, congregations, PESTLE) · 6. Marketing & Acquisition · 7. Data & Technology
-8. Operations · 9. Financial Intelligence · 10. Strategic Synthesis (TOWS, Blue Ocean ERRC, Blueprint)
-11. Experimentation · 12. Execution & Governance · 13. Risk & Scenarios · 14. Knowledge System
-15. Output Generation · 16. Quality Control · 17. The Path Forward (Two Paths, Phase 2 preview — closing)
+## EXACT structure — follow the authoritative outlines (do not deviate)
+The decks must reproduce the docx deliverable structure **exactly** — section-for-section and
+sub-section-for-sub-section, in order, nothing added, merged, dropped, or reordered. The authoritative
+slide lists are generated straight from the source docs:
 
-## Persona deck map
-Cover → Persona Snapshot (card) → 9W+H (WHO…WISH, one slide each) → Archetype profile → Psychometrics
-(CNFU/BESC/CSII/MVS — KPI bars in Electric Blue) → Empathy Map (2×2, Light Panel Gray quadrants) →
-Customer Journey (cool status remap) → Meta Ads Export Card → closing.
+- **`nco://knowledge/design/phase-1-bible-slide-outline.md`** — 18 section dividers + **106 content slides**, one per Bible sub-section (0.1 … 17.5). Mirrors `PHASE 1 - THE NEURO-COMMERCE BIBLE.docx`.
+- **`nco://knowledge/design/phase-1-persona-slide-outline.md`** — 32 section dividers + **77 content slides**, one per Persona sub-section (0.1 … 31). Mirrors `PHASE 1 - THE COMPLETE PERFECT PERSONA TEMPLATE.docx`.
+
+Rules for building each deck:
+1. Add a **cover** slide, then walk the outline top to bottom.
+2. Each `§` line → one **section-divider** slide (Architect Navy, gradient section number).
+3. Each `▸` line → one **content slide** whose title is that exact heading, and whose body is the
+   **exact table/fields** from the matching heading in `nco://knowledge/phase-1/01-neuro-commerce-bible.md`
+   (or `…/04-perfect-persona-template.md`). Reproduce every column, row label, and field verbatim —
+   fill values from the engagement, leaving `[…]` placeholders where data is pending.
+4. Pick the slide master by content: dashboards/scores → KPI slide; matrices/tables → content/table
+   slide; persona pages → persona card; VoC quotes → quote slide; 17.x path-forward → closing.
+5. Do not summarize or collapse multiple sub-sections onto one slide — the count must match (106 / 77).
 
 ## Build procedure
 1. `create_presentation` (16:9).

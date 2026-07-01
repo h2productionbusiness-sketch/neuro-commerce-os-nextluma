@@ -597,7 +597,10 @@ export const TOOLS = [
           "nco://knowledge/design/tokens.json",
           "nco://knowledge/design/tokens.css",
           "nco://knowledge/design/phase-1-deck-spec.md",
+          "nco://knowledge/design/phase-1-bible-slide-outline.md (106 content slides — EXACT docx order)",
+          "nco://knowledge/design/phase-1-persona-slide-outline.md (77 content slides — EXACT docx order)",
         ],
+        exact_slide_counts: { bible_content_slides: 106, persona_content_slides: 77, note: "One slide per docx sub-section; do not add/merge/drop/reorder." },
         status_remap_no_warm_tones: { strong: "#4CD7FF", neutral: "#6B7280", weak: "#FF4D8D" },
         deck_spec: (a.include_deck_spec === false) ? undefined : excerpt("design/phase-1-deck-spec.md", 6000),
       });
