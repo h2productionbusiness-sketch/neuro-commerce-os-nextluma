@@ -11,7 +11,10 @@ import { viralityScore, creativeFatigue, churnRisk } from "./lib/growth.js";
 import { VIDEO_TOOLS, SOCIAL_SOURCES, ingestPlan, hookPerformance, contentScorecard, viralityAndCps } from "./lib/video.js";
 import { readinessScore, scoreSegments } from "./lib/persona-scoring.js";
 import { biblePlan, personaPlan } from "./lib/deckplan.js";
-import { excerpt, loadKnowledge } from "./lib/templates.js";
+import { n8nStatus, triggerWebhook, installGuide, N8N_ENV } from "./lib/n8n.js";
+import { excerpt, loadKnowledge, PLUGIN_ROOT } from "./lib/templates.js";
+import { readFileSync, existsSync } from "node:fs";
+import { join } from "node:path";
 
 const json = (obj) => ({ content: [{ type: "text", text: JSON.stringify(obj, null, 2) }] });
 const text = (s) => ({ content: [{ type: "text", text: s }] });
@@ -691,6 +694,55 @@ export const TOOLS = [
       out.instructions = "Build one PPTX slide per plan entry, in order. Title = entry.title; style = entry.master (see phase-1-deck-spec.md); populate content-slide tables verbatim from nco://knowledge/phase-1/01-neuro-commerce-bible.md or …/04-perfect-persona-template.md.";
       return json(out);
     },
+  },
+
+  // 24 — n8n: install guidance + status ─────────────────────────────────────────
+  {
+    name: "install_n8n",
+    description: "Return OS-appropriate commands to install & run n8n locally (Node route preferred; Docker fallback), how to link it to the plugin, and the current reachability of the local n8n server.",
+    inputSchema: {
+      type: "object",
+      properties: { os: { type: "string", enum: ["windows", "mac", "linux"], default: "windows" } },
+    },
+    handler: async (a) => json({ guide: installGuide(a.os || "windows"), status: await n8nStatus(), env: N8N_ENV }),
+  },
+
+  // 25 — n8n: configure webhook + export importable workflow ─────────────────────
+  {
+    name: "configure_n8n_webhook",
+    description: "Return the n8n webhook setup steps plus the bundled importable workflow JSON (Phase 4 post-click lead-automation pipeline: webhook → scoring → route to AI voice / Meta CAPI offline conversion).",
+    inputSchema: { type: "object", properties: {} },
+    handler: async () => {
+      const wfPath = join(PLUGIN_ROOT, "automation", "n8n", "lead-automation-pipeline.json");
+      const workflow = existsSync(wfPath) ? readFileSync(wfPath, "utf-8") : "(workflow file not found)";
+      return json({
+        status: await n8nStatus(),
+        steps: [
+          "Open http://localhost:5678 and create/sign in to your local n8n.",
+          "Workflows → Import from File/JSON → paste the workflow below (or import automation/n8n/lead-automation-pipeline.json).",
+          "Replace YOUR_* placeholders (Vapi key + assistant, Meta ad account + access token).",
+          "Toggle the workflow Active, open the Webhook node, copy the Production URL (…/webhook/lead-capture).",
+          "Set N8N_WEBHOOK_URL to that URL in .mcp.json (or pass it to trigger_n8n_workflow).",
+          "In Meta, point your Lead Form / CRM webhook at the same URL so leads flow in.",
+        ],
+        workflow_json: workflow,
+        env: N8N_ENV,
+      });
+    },
+  },
+
+  // 26 — n8n: trigger a workflow (plugin → n8n automation link) ──────────────────
+  {
+    name: "trigger_n8n_workflow",
+    description: "POST a JSON payload to an n8n webhook to trigger an automation (e.g. publish content, deploy post-click flow, sync a lead). Targets are restricted to your local n8n unless ALLOW_EXTERNAL_WEBHOOKS=1.",
+    inputSchema: {
+      type: "object",
+      properties: {
+        webhook_url: { type: "string", description: "n8n webhook URL (defaults to N8N_WEBHOOK_URL)" },
+        payload: { type: "object", description: "JSON payload to send" },
+      },
+    },
+    handler: async (a) => json(await triggerWebhook(a.webhook_url, a.payload)),
   },
 ];
 

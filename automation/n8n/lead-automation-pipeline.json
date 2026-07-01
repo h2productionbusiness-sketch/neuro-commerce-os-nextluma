@@ -1,0 +1,88 @@
+{
+  "name": "Neuro-Commerce OS — Lead Automation Pipeline",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "lead-capture",
+        "responseMode": "onReceived",
+        "options": {}
+      },
+      "id": "webhook-lead",
+      "name": "Webhook — Lead Capture",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [240, 300],
+      "webhookId": "neuro-commerce-lead-capture"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Lead scoring — tune weights to your ICP.\nconst lead = $input.first().json.body || $input.first().json;\nlet score = 0;\nconst title = String(lead.job_title || lead.title || '').toLowerCase();\nif (['ceo','cto','founder','owner','director','head'].some(t => title.includes(t))) score += 40;\nif (Number(lead.company_revenue || 0) > 1000000) score += 30;\nif (Number(lead.company_size || 0) > 50) score += 20;\nif (lead.budget && String(lead.budget).match(/[0-9]/)) score += 10;\nlead.score = score;\nlead.temperature = score >= 60 ? 'HIGH' : 'LOW';\nreturn [{ json: lead }];"
+      },
+      "id": "code-scoring",
+      "name": "Lead Scoring",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [480, 300]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": { "caseSensitive": true, "typeValidation": "strict" },
+          "conditions": [
+            { "leftValue": "={{$json.temperature}}", "rightValue": "HIGH", "operator": { "type": "string", "operation": "equals" } }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "if-temp",
+      "name": "High Intent?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [720, 300]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.vapi.ai/call",
+        "sendHeaders": true,
+        "headerParameters": { "parameters": [ { "name": "Authorization", "value": "Bearer YOUR_VAPI_API_KEY" } ] },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"assistantId\": \"YOUR_ASSISTANT_ID\",\n  \"customer\": { \"number\": \"{{$json.phone}}\" }\n}",
+        "options": {}
+      },
+      "id": "http-vapi",
+      "name": "Vapi AI Call (HIGH)",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [980, 200]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://graph.facebook.com/v20.0/act_YOUR_AD_ACCOUNT_ID/events",
+        "sendQuery": true,
+        "queryParameters": { "parameters": [ { "name": "access_token", "value": "YOUR_META_ACCESS_TOKEN" } ] },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"data\": [ { \"event_name\": \"qualified_lead\", \"event_time\": {{Math.floor(Date.now()/1000)}}, \"action_source\": \"phone_call\", \"user_data\": { \"ph\": [\"{{$json.phone}}\"] } } ]\n}",
+        "options": {}
+      },
+      "id": "http-capi",
+      "name": "Meta CAPI — Offline Conversion",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [980, 400]
+    }
+  ],
+  "connections": {
+    "Webhook — Lead Capture": { "main": [ [ { "node": "Lead Scoring", "type": "main", "index": 0 } ] ] },
+    "Lead Scoring": { "main": [ [ { "node": "High Intent?", "type": "main", "index": 0 } ] ] },
+    "High Intent?": { "main": [ [ { "node": "Vapi AI Call (HIGH)", "type": "main", "index": 0 } ], [ { "node": "Meta CAPI — Offline Conversion", "type": "main", "index": 0 } ] ] },
+    "Vapi AI Call (HIGH)": { "main": [ [ { "node": "Meta CAPI — Offline Conversion", "type": "main", "index": 0 } ] ] }
+  },
+  "settings": { "executionOrder": "v1" },
+  "meta": { "note": "Neuro-Commerce OS Phase 4 post-click pipeline. Replace YOUR_* placeholders. Webhook path: /webhook/lead-capture. Activate the workflow, copy the Production URL, set N8N_WEBHOOK_URL." }
+}
