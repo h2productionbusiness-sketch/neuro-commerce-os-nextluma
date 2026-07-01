@@ -38,7 +38,25 @@ Or read them via the MCP server resources: `nco://knowledge/phase-1/...` and
 8. **Strategic Synthesis** — SWOT/TOWS, Blue Ocean ERRC, one-page Blueprint.
 9. **Assemble the Bible** — Sections 0–17 plus appendix. Include Section 0 Executive Meta Layer (Diagnostic Metadata, Trust Index) and Section 17 The Path Forward (Two Paths, Phase 2 preview).
 
-## Output
-`neuro_commerce_bible.md`, `persona_profiles.md`, `market_intelligence.md`. Quantify every
-recommendation (€ impact, ROI, payback). Triangulate from 2+ sources. End by running the Phase 1 QA
-checklist (`/qa 1`) and previewing Phase 2.
+## Output — PowerPoint decks (NextLuma design)
+Phase 1 deliverables are presented as **PowerPoint decks styled with the NextLuma Color System**
+("Cold Architecture × Living Intelligence"), not just markdown. Produce:
+- **`Neuro-Commerce-Bible.pptx`** — the 18-section diagnostic (100–150 slides).
+- **`Persona-Architecture.pptx`** — primary/secondary/anti-persona (built via the `persona-architect` skill).
+
+How to build them:
+1. Call **`get_nextluma_design_system`** (MCP) for the exact palette + the Phase 1 deck spec, or read
+   `${CLAUDE_PLUGIN_ROOT}/knowledge/design/nextluma-color-system.md`, `tokens.json`, and
+   `phase-1-deck-spec.md` (resources `nco://knowledge/design/*`).
+2. Build the decks with the **PowerPoint MCP tools** (`mcp__PowerPoint__By_Anthropic___create_presentation`,
+   `add_slide`, `set_slide_title`, `add_text_to_slide`, `insert_image`, `save_presentation`, `export_pdf`)
+   or the `pptx` skill — following the slide masters in the deck spec.
+3. Apply the palette exactly: Architect Navy `#0B1E3C` covers/dividers, Pure White content, System Blue
+   `#123A6F` table headers, the Intelligence Gradient as a 10–20% accent (blended, never flat neon),
+   Text Gray `#6B7280` secondary copy. **No warm tones** — remap 🟢🟡🔴 status to Cyber Cyan `#4CD7FF` /
+   Text Gray `#6B7280` / Plasma Pink `#FF4D8D`.
+4. Populate every table from the canonical `knowledge/phase-1/*` templates — reproduce fields exactly.
+
+Also keep the markdown sources (`neuro_commerce_bible.md`, `persona_profiles.md`, `market_intelligence.md`).
+Quantify every recommendation (€ impact, ROI, payback); triangulate from 2+ sources. End by running the
+Phase 1 QA checklist (`/qa 1`) and previewing Phase 2.

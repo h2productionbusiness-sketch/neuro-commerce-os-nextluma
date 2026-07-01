@@ -46,7 +46,7 @@ export function listKnowledge() {
     let files;
     try { files = readdirSync(pdir); } catch { continue; }
     for (const f of files) {
-      if (f.endsWith(".md")) out.push(`${phase}/${f}`);
+      if (f.endsWith(".md") || f.endsWith(".json") || f.endsWith(".css")) out.push(`${phase}/${f}`);
     }
   }
   return out.sort();

@@ -1,0 +1,56 @@
+/* ============================================================
+   NextLuma Agency — Color System Design Tokens
+   "Cold Architecture × Living Intelligence"
+   ============================================================ */
+
+:root {
+  /* --- Core Brand --- */
+  --nl-architect-navy: #0B1E3C;   /* Authority */
+  --nl-system-blue:    #123A6F;   /* Architecture */
+  --nl-charcoal-core:  #1C1C1E;   /* Engineering */
+  --nl-pure-white:     #FFFFFF;   /* Canvas */
+
+  /* --- Intelligence Gradient stops --- */
+  --nl-quantum-violet: #7B4DFF;
+  --nl-neon-magenta:   #E056FD;
+  --nl-cyber-cyan:     #4CD7FF;
+  --nl-electric-blue:  #2F80ED;
+  --nl-plasma-pink:    #FF4D8D;   /* floating accent only */
+
+  /* --- UI Neutrals --- */
+  --nl-light-panel:    #F3F4F6;
+  --nl-soft-border:    #E5E7EB;
+  --nl-text-gray:      #6B7280;
+
+  /* --- Metallic Accents (3D renders only) --- */
+  --nl-chrome-light:   #DADADA;
+  --nl-steel-shadow:   #8A8A8A;
+
+  /* --- Signature gradients (always blended) --- */
+  --nl-gradient-intelligence: linear-gradient(
+    90deg,
+    var(--nl-quantum-violet) 0%,
+    var(--nl-neon-magenta)   33%,
+    var(--nl-cyber-cyan)     66%,
+    var(--nl-electric-blue)  100%
+  );
+  --nl-gradient-depth: linear-gradient(
+    180deg,
+    var(--nl-system-blue) 0%,
+    var(--nl-architect-navy) 100%
+  );
+
+  /* --- Semantic roles --- */
+  --nl-bg:            var(--nl-pure-white);
+  --nl-bg-dark:       var(--nl-architect-navy);
+  --nl-surface:       var(--nl-light-panel);
+  --nl-border:        var(--nl-soft-border);
+  --nl-text:          var(--nl-architect-navy);
+  --nl-text-muted:    var(--nl-text-gray);
+  --nl-text-on-dark:  var(--nl-pure-white);
+  --nl-accent:        var(--nl-quantum-violet);
+
+  /* --- Soft glow shadow for emphasis --- */
+  --nl-glow-violet: 0 0 120px rgba(123, 77, 255, 0.45);
+  --nl-glow-cyan:   0 0 120px rgba(76, 215, 255, 0.40);
+}

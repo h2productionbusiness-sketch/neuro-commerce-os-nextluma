@@ -25,6 +25,9 @@ MCP: `generate_persona_architecture`; resources `nco://template/persona_template
 6. **AI Activation** — Meta Ads Export Card (demographics, interests Tier1/Tier2, behaviors, exclusions, hooks, CTAs) + AI-ready JSON persona.
 
 ## Output
-`persona_snapshot.md`, `9wh_profile.md`, `empathy_map.md`, `archetype_profile.md`, `persona.json`.
+`persona_snapshot.md`, `9wh_profile.md`, `empathy_map.md`, `archetype_profile.md`, `persona.json` — and
+a **`Persona-Architecture.pptx`** deck styled with the NextLuma Color System (persona cards, 9W+H, archetype,
+psychometric bars, empathy map). Use `get_nextluma_design_system` + the Persona deck map in
+`nco://knowledge/design/phase-1-deck-spec.md`, built via the PowerPoint MCP tools / `pptx` skill.
 Always cite evidence (quotes/data) for psychological claims; flag low-confidence inferences in the
 Assumption Tracker.

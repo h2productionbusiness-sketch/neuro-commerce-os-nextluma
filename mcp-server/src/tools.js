@@ -574,6 +574,35 @@ export const TOOLS = [
       note: "Tiers/benchmarks are transparent and configurable; VPS weights are fixed per the Inception Codex (8.2).",
     }),
   },
+
+  // 20 — NextLuma design system (for PowerPoint deck styling) ────────────────────
+  {
+    name: "get_nextluma_design_system",
+    description: "Return the NextLuma Color System tokens (exact hex values, intelligence gradient, UI neutrals, non-negotiable rules) and the Phase 1 PowerPoint deck spec — for building on-brand decks/visuals.",
+    inputSchema: {
+      type: "object",
+      properties: {
+        include_deck_spec: { type: "boolean", default: true, description: "Include the Phase 1 slide-by-slide deck spec" },
+      },
+    },
+    handler: async (a) => {
+      let tokens = null;
+      const raw = loadKnowledge("design/tokens.json");
+      try { tokens = raw ? JSON.parse(raw) : null; } catch { tokens = raw; }
+      return json({
+        design_system: "NextLuma — Cold Architecture × Living Intelligence",
+        tokens,
+        resources: [
+          "nco://knowledge/design/nextluma-color-system.md",
+          "nco://knowledge/design/tokens.json",
+          "nco://knowledge/design/tokens.css",
+          "nco://knowledge/design/phase-1-deck-spec.md",
+        ],
+        status_remap_no_warm_tones: { strong: "#4CD7FF", neutral: "#6B7280", weak: "#FF4D8D" },
+        deck_spec: (a.include_deck_spec === false) ? undefined : excerpt("design/phase-1-deck-spec.md", 6000),
+      });
+    },
+  },
 ];
 
 export function getTool(name) {

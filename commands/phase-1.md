@@ -26,8 +26,17 @@ Drive it with the MCP server:
 7. **Persona & Archetype Development** — full 9W+H per primary/secondary/anti-persona.
 8. **Assemble the Bible** — all 18 sections (0–17).
 
-## Deliverables
-`neuro_commerce_bible.md` (18 sections), `persona_profiles.md` (9W+H + perfect-persona template),
-`market_intelligence.md`. Read the templates from `nco://knowledge/phase-1/*` and reproduce them exactly.
+## Deliverables — PowerPoint decks (NextLuma design)
+Present Phase 1 as **PowerPoint decks styled with the NextLuma Color System** (Cold Architecture ×
+Living Intelligence):
+- **`Neuro-Commerce-Bible.pptx`** (18 sections, 100–150 slides) and **`Persona-Architecture.pptx`**.
+- Call **`get_nextluma_design_system`** for the exact palette + deck spec (or read
+  `nco://knowledge/design/nextluma-color-system.md` + `phase-1-deck-spec.md`).
+- Build with the **PowerPoint MCP tools** (`mcp__PowerPoint__By_Anthropic___*`) or the `pptx` skill,
+  following the slide masters. Palette: Architect Navy `#0B1E3C`, Pure White, System Blue `#123A6F`
+  table headers, Intelligence Gradient accent (10–20%, blended), Text Gray secondary. **No warm tones**
+  (remap status colors to cyan/gray/plasma-pink).
+- Populate every table from `nco://knowledge/phase-1/*` and reproduce the structure exactly. Keep the
+  markdown sources too (`neuro_commerce_bible.md`, `persona_profiles.md`, `market_intelligence.md`).
 
 When complete, run `/qa` (Phase 1 checklist), then `/phase-2`.
