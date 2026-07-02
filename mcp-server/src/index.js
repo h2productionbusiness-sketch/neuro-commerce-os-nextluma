@@ -11,14 +11,25 @@ import {
 import { TOOLS, getTool } from "./tools.js";
 import { listResources, readResource } from "./resources.js";
 import { PROMPTS, getPrompt } from "./prompts.js";
+import { listUiResources, readUiResource, checkSetup } from "./lib/ui.js";
+import { EXTENSION_ID } from "@modelcontextprotocol/ext-apps/server";
 
 const server = new Server(
-  { name: "neuro-commerce-os-mcp", version: "1.0.0" },
-  { capabilities: { tools: {}, resources: {}, prompts: {} } }
+  { name: "neuro-commerce-os-mcp", version: "2.0.0" },
+  {
+    capabilities: {
+      tools: {}, resources: {}, prompts: {},
+      // MCP Apps (Zero-Command UI): advertise the ui extension.
+      extensions: { [EXTENSION_ID]: {} },
+    },
+  }
 );
 
 server.setRequestHandler(ListToolsRequestSchema, async () => ({
-  tools: TOOLS.map((t) => ({ name: t.name, description: t.description, inputSchema: t.inputSchema })),
+  tools: TOOLS.map((t) => ({
+    name: t.name, description: t.description, inputSchema: t.inputSchema,
+    ...(t._meta ? { _meta: t._meta } : {}), // MCP Apps card-template links
+  })),
 }));
 
 server.setRequestHandler(CallToolRequestSchema, async (req) => {
@@ -31,8 +42,13 @@ server.setRequestHandler(CallToolRequestSchema, async (req) => {
   }
 });
 
-server.setRequestHandler(ListResourcesRequestSchema, async () => ({ resources: listResources() }));
-server.setRequestHandler(ReadResourceRequestSchema, async (req) => ({ contents: [readResource(req.params.uri)] }));
+server.setRequestHandler(ListResourcesRequestSchema, async () => ({
+  resources: [...listResources(), ...listUiResources()],
+}));
+server.setRequestHandler(ReadResourceRequestSchema, async (req) => {
+  const ui = req.params.uri.startsWith("ui://") ? readUiResource(req.params.uri) : null;
+  return { contents: [ui ?? readResource(req.params.uri)] };
+});
 
 server.setRequestHandler(ListPromptsRequestSchema, async () => ({
   prompts: PROMPTS.map((p) => ({ name: p.name, description: p.description, arguments: p.arguments })),
@@ -52,6 +68,15 @@ if (process.argv.includes("--selfcheck")) {
     toolNames: TOOLS.map((t) => t.name),
   }, null, 2));
   process.exit(0);
+}
+
+// v2.0 zero-command setup check: report missing capability keys at startup.
+const setup = checkSetup();
+if (setup.setupNeeded) {
+  console.error(
+    `Setup: ${setup.missing.length} optional key(s) unset (${setup.missing.slice(0, 4).join(", ")}${setup.missing.length > 4 ? "…" : ""}) — ` +
+    `open the setup wizard (${setup.wizard}) or call save_os_configuration. All features degrade gracefully meanwhile.`
+  );
 }
 
 // v2.0 neuroplasticity: consolidate memory when the last cycle is > 24h old.

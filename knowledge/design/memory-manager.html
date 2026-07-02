@@ -1,0 +1,34 @@
+<!doctype html>
+<!-- Neuro-Commerce OS · Memory Manager (MCP App) — inspect + override what the OS believes.
+     Host pushes {type:"render", data:{client, facts:[{key,value}], learnings:[{key,value}], preferences:[{key,value}]}} -->
+<html lang="en"><head><meta charset="utf-8"><title>Memory Manager</title><style>
+  :root{--navy:#0B1E3C;--cyan:#4CD7FF;--gray:#6B7280;--grad:linear-gradient(90deg,#7B4DFF,#E056FD,#4CD7FF,#2F80ED)}
+  *{box-sizing:border-box;margin:0}body{font:14px/1.5 'Segoe UI',system-ui,sans-serif;background:var(--navy);color:#fff;padding:20px}
+  .brand{font-size:10px;letter-spacing:.18em;color:var(--cyan);text-transform:uppercase}
+  h1{font-size:20px;margin:2px 0 12px}h1 b{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+  h2{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--cyan);margin:14px 0 6px}
+  .item{display:flex;justify-content:space-between;align-items:center;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:8px;padding:8px 12px;margin-bottom:6px;font-size:12px}
+  .item .k{color:#9CA3AF;margin-right:10px;white-space:nowrap}.item .v{flex:1;color:#E5E7EB;word-break:break-word}
+  .item button{background:none;border:1px solid rgba(255,77,141,.4);color:#FF4D8D;border-radius:6px;padding:3px 10px;font-size:10px;cursor:pointer;margin-left:8px}
+  .item button:hover{background:rgba(255,77,141,.15)}
+  .empty{color:var(--gray);font-size:12px;font-style:italic}
+  .hint{font-size:11px;color:var(--gray);margin-top:12px}
+</style></head><body>
+  <div class="brand">NextLuma · Neuro-Commerce OS</div>
+  <h1>Memory <b>Manager</b> <span id="client" style="font-size:13px;color:#9CA3AF"></span></h1>
+  <h2>Client facts</h2><div id="facts"><div class="empty">none</div></div>
+  <h2>Learnings</h2><div id="learnings"><div class="empty">none</div></div>
+  <h2>Operator preferences</h2><div id="prefs"><div class="empty">none</div></div>
+  <div class="hint">Deleting is final: <code>override_memory</code> also purges the RAG index so a removed fact cannot resurface.</div>
+<script>
+  let CLIENT=null;
+  function row(list,scope){return list.map(x=>'<div class="item"><span class="k">'+x.key+'</span><span class="v">'+x.value+'</span><button onclick="del(\''+scope+'\',\''+encodeURIComponent(x.key)+'\')">✕ forget</button></div>').join('')||'<div class="empty">none</div>'}
+  function render(d){if(!d)return;CLIENT=d.client||null;
+    document.getElementById('client').textContent=CLIENT?('· '+CLIENT):'';
+    document.getElementById('facts').innerHTML=row(d.facts||[],'client');
+    document.getElementById('learnings').innerHTML=row(d.learnings||[],'client');
+    document.getElementById('prefs').innerHTML=row(d.preferences||[],'operator');}
+  function del(scope,key){parent.postMessage({type:'intent',intent:'tool',tool:'override_memory',params:{scope:scope,client:CLIENT,key:decodeURIComponent(key),action:'delete'}},'*')}
+  window.addEventListener('message',e=>{if(e.data&&e.data.type==='render')render(e.data.data)});
+  parent.postMessage({type:'ready',app:'memory-manager'},'*');
+</script></body></html>

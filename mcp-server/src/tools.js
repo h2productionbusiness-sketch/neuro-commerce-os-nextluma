@@ -16,6 +16,7 @@ import { STATE_TOOLS } from "./lib/state.js";
 import { INTENT_TOOLS } from "./lib/intent.js";
 import { VIDEOGEN_TOOLS } from "./lib/video-gen.js";
 import { NEURO_TOOLS } from "./lib/neuro-tools.js";
+import { UI_TOOLS } from "./lib/ui.js";
 import { excerpt, loadKnowledge, PLUGIN_ROOT } from "./lib/templates.js";
 import { readFileSync, existsSync } from "node:fs";
 import { join } from "node:path";
@@ -760,6 +761,9 @@ export const TOOLS = [
 
   // ── v2.0 NeuroSystem memory + consolidation (lib/neuro-tools.js) ─────────
   ...NEURO_TOOLS,
+
+  // ── v2.0 Zero-Command UI: config + model routing (lib/ui.js) ─────────────
+  ...UI_TOOLS,
 ];
 
 export function getTool(name) {

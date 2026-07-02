@@ -1,0 +1,54 @@
+<!doctype html>
+<!-- Neuro-Commerce OS · Welcome Dashboard (MCP App) — rendered by MCP-Apps-capable hosts.
+     Host pushes state via postMessage {type:"render", data:{engagement, progress, steps, events}} -->
+<html lang="en"><head><meta charset="utf-8"><title>Neuro-Commerce OS</title><style>
+  :root{--navy:#0B1E3C;--blue:#123A6F;--cyan:#4CD7FF;--violet:#7B4DFF;--magenta:#E056FD;--panel:#F3F4F6;--border:#E5E7EB;--gray:#6B7280;
+        --grad:linear-gradient(90deg,#7B4DFF,#E056FD,#4CD7FF,#2F80ED)}
+  *{box-sizing:border-box;margin:0}body{font:14px/1.5 'Segoe UI',system-ui,sans-serif;background:var(--navy);color:#fff;padding:20px}
+  .brand{font-size:11px;letter-spacing:.18em;color:var(--cyan);text-transform:uppercase}
+  h1{font-size:22px;margin:2px 0 14px}h1 b{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .card{background:rgba(255,255,255,.05);border:1px solid rgba(76,215,255,.18);border-radius:10px;padding:14px}
+  .card h2{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--cyan);margin-bottom:8px}
+  .kv{display:flex;justify-content:space-between;padding:3px 0;border-bottom:1px solid rgba(255,255,255,.06);font-size:13px}
+  .kv span:first-child{color:#9CA3AF}
+  .bar{display:flex;gap:3px;margin:10px 0 6px}
+  .seg{flex:1;height:8px;border-radius:2px;background:rgba(255,255,255,.12)}
+  .seg.done{background:var(--grad)}.seg.current{background:var(--cyan);box-shadow:0 0 8px var(--cyan)}
+  .feed{list-style:none;font-size:12px;max-height:150px;overflow:auto}
+  .feed li{padding:4px 0;border-bottom:1px solid rgba(255,255,255,.06);color:#D1D5DB}
+  .feed time{color:var(--gray);font-size:10px;margin-right:6px}
+  .cta{grid-column:1/-1;text-align:center;padding:16px;border-radius:10px;background:rgba(123,77,255,.12);border:1px solid rgba(123,77,255,.35)}
+  .cta button{background:var(--grad);border:0;color:#fff;font-weight:600;padding:10px 26px;border-radius:8px;cursor:pointer;font-size:14px}
+  .muted{color:var(--gray);font-size:12px;margin-top:6px}
+</style></head><body>
+  <div class="brand">NextLuma · Neuro-Commerce OS</div>
+  <h1>Command <b>Dashboard</b></h1>
+  <div class="grid">
+    <div class="card"><h2>Engagement</h2>
+      <div class="kv"><span>Client</span><span id="client">—</span></div>
+      <div class="kv"><span>Blueprint</span><span id="blueprint">—</span></div>
+      <div class="kv"><span>Phase</span><span id="phase">—</span></div>
+      <div class="kv"><span>Started</span><span id="started">—</span></div>
+    </div>
+    <div class="card"><h2>Phase progress · <span id="progress">0/18</span></h2>
+      <div class="bar" id="bar"></div>
+      <div class="muted" id="stepline">No active run — initialize a session to begin.</div>
+    </div>
+    <div class="card" style="grid-column:1/-1"><h2>Synapse feed</h2><ul class="feed" id="feed"><li>No events yet.</li></ul></div>
+    <div class="cta"><button onclick="send('request_next_step')">▶ Next Step</button>
+      <div class="muted">Zero-command mode: the OS tells you what happens next.</div></div>
+  </div>
+<script>
+  function seg(n,done,cur){const b=document.getElementById('bar');b.innerHTML='';for(let i=0;i<n;i++){const s=document.createElement('div');s.className='seg'+(i<done?' done':i===done&&cur?' current':'');b.appendChild(s)}}
+  seg(18,0,true);
+  function render(d){if(!d)return;const g=id=>document.getElementById(id);
+    if(d.engagement){g('client').textContent=d.engagement.client||'—';g('blueprint').textContent=d.engagement.blueprint||'—';g('started').textContent=(d.engagement.startedAt||'—').slice(0,10)}
+    if(d.phase)g('phase').textContent=d.phase;
+    if(d.progress){g('progress').textContent=d.progress;const[a,b]=d.progress.split('/').map(Number);seg(b||18,a||0,true)}
+    if(d.currentStep)g('stepline').textContent='Current: '+d.currentStep.id+' — '+d.currentStep.section;
+    if(Array.isArray(d.events)&&d.events.length)g('feed').innerHTML=d.events.map(e=>'<li><time>'+(e.at||'').slice(11,19)+'</time>'+e.type+'</li>').join('');}
+  window.addEventListener('message',e=>{if(e.data&&e.data.type==='render')render(e.data.data)});
+  function send(tool,params){parent.postMessage({type:'intent',intent:'tool',tool:tool,params:params||{}},'*')}
+  parent.postMessage({type:'ready',app:'welcome-dashboard'},'*');
+</script></body></html>
