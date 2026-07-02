@@ -1,0 +1,169 @@
+{
+  "_readme": "Neuro-Commerce OS run-state (v2.0 State Machine). LIVE engagement state — mutated by mcp-server/src/lib/state.js via the request_next_step / submit_deliverable enforcer tools. The committed version is the pristine 'no active run' template; initialize_os_session seeds an engagement, and every deliverable submission advances the pointer. The lock rule: a step can only be submitted when it IS the current step — no skipping, no silent parallelism.",
+  "version": 1,
+  "active": false,
+  "engagement": {
+    "client": null,
+    "blueprint": null,
+    "startedAt": null,
+    "completedAt": null
+  },
+  "currentPhase": "phase-1",
+  "currentStepIndex": 0,
+  "phases": {
+    "phase-1": {
+      "title": "Neuro-Commerce Bible — 18-section strategic diagnostic",
+      "knowledge": [
+        "knowledge/phase-1/01-neuro-commerce-bible.md",
+        "knowledge/phase-1/02-execute-phase-1-step-by-step.md"
+      ],
+      "steps": [
+        {
+          "id": "p1-s00",
+          "section": "0 Executive Meta Layer",
+          "focus": "Frame the engagement: objectives, constraints, decision-makers, definition of success.",
+          "status": "pending",
+          "deliverable": null,
+          "submittedAt": null
+        },
+        {
+          "id": "p1-s01",
+          "section": "1 Business & Strategy",
+          "focus": "Business model canvas, revenue architecture, strategic posture, Brutal Truth audit.",
+          "status": "pending",
+          "deliverable": null,
+          "submittedAt": null
+        },
+        {
+          "id": "p1-s02",
+          "section": "2 Product/Service Intelligence",
+          "focus": "Offer inventory, differentiation, product-market evidence, top-3 products.",
+          "status": "pending",
+          "deliverable": null,
+          "submittedAt": null
+        },
+        {
+          "id": "p1-s03",
+          "section": "3 Pricing & Monetization",
+          "focus": "Pricing model audit, willingness-to-pay, offer stack, revenue leakage.",
+          "status": "pending",
+          "deliverable": null,
+          "submittedAt": null
+        },
+        {
+          "id": "p1-s04",
+          "section": "4 Customer & Behavior",
+          "focus": "9W+H persona inputs, pains/desires, empathy map, behavioral signals.",
+          "status": "pending",
+          "deliverable": null,
+          "submittedAt": null
+        },
+        {
+          "id": "p1-s05",
+          "section": "5 Market Intelligence",
+          "focus": "TAM/SAM/SOM, competitor matrix, congregations, trends, white space.",
+          "status": "pending",
+          "deliverable": null,
+          "submittedAt": null
+        },
+        {
+          "id": "p1-s06",
+          "section": "6 Marketing & Acquisition",
+          "focus": "Channel audit, CAC by channel, funnel diagnosis, message-market fit.",
+          "status": "pending",
+          "deliverable": null,
+          "submittedAt": null
+        },
+        {
+          "id": "p1-s07",
+          "section": "7 Data & Technology",
+          "focus": "Stack inventory, tracking/attribution health, data gaps, automation readiness.",
+          "status": "pending",
+          "deliverable": null,
+          "submittedAt": null
+        },
+        {
+          "id": "p1-s08",
+          "section": "8 Operations",
+          "focus": "Fulfilment capacity, bottlenecks, unit-level process map, scale readiness.",
+          "status": "pending",
+          "deliverable": null,
+          "submittedAt": null
+        },
+        {
+          "id": "p1-s09",
+          "section": "9 Financial Intelligence",
+          "focus": "Unit economics baseline (One-Third Rule), LTV/CPA, margin structure, cash dynamics.",
+          "status": "pending",
+          "deliverable": null,
+          "submittedAt": null
+        },
+        {
+          "id": "p1-s10",
+          "section": "10 Strategic Synthesis (TOWS/Blue Ocean ERRC/Blueprint)",
+          "focus": "SWOT→TOWS, ERRC grid, Quantum Score, 30/60/90 blueprint.",
+          "status": "pending",
+          "deliverable": null,
+          "submittedAt": null
+        },
+        {
+          "id": "p1-s11",
+          "section": "11 Experimentation System",
+          "focus": "Hypothesis backlog, test design, weekly experiment cadence, success metrics.",
+          "status": "pending",
+          "deliverable": null,
+          "submittedAt": null
+        },
+        {
+          "id": "p1-s12",
+          "section": "12 Execution & Governance",
+          "focus": "Owners, cadence, decision rights, reporting rhythm, escalation paths.",
+          "status": "pending",
+          "deliverable": null,
+          "submittedAt": null
+        },
+        {
+          "id": "p1-s13",
+          "section": "13 Risk & Scenarios",
+          "focus": "Risk register, scenario planning, kill criteria, contingency triggers.",
+          "status": "pending",
+          "deliverable": null,
+          "submittedAt": null
+        },
+        {
+          "id": "p1-s14",
+          "section": "14 Knowledge System",
+          "focus": "Client memory seeding, assumption tracker, knowledge-graph entries.",
+          "status": "pending",
+          "deliverable": null,
+          "submittedAt": null
+        },
+        {
+          "id": "p1-s15",
+          "section": "15 Output Generation",
+          "focus": "Assemble the Bible deck (106 slides) + persona deck per template.",
+          "status": "pending",
+          "deliverable": null,
+          "submittedAt": null
+        },
+        {
+          "id": "p1-s16",
+          "section": "16 Quality Control",
+          "focus": "QA checklist pass, cross-section consistency, evidence citations.",
+          "status": "pending",
+          "deliverable": null,
+          "submittedAt": null
+        },
+        {
+          "id": "p1-s17",
+          "section": "17 The Path Forward",
+          "focus": "Phase-2 handoff package: locked positioning inputs, persona exports, open questions.",
+          "status": "pending",
+          "deliverable": null,
+          "submittedAt": null
+        }
+      ]
+    }
+  },
+  "history": []
+}
