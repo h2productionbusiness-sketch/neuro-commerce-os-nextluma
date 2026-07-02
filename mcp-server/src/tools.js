@@ -14,6 +14,7 @@ import { biblePlan, personaPlan } from "./lib/deckplan.js";
 import { n8nStatus, triggerWebhook, installGuide, N8N_ENV } from "./lib/n8n.js";
 import { STATE_TOOLS } from "./lib/state.js";
 import { INTENT_TOOLS } from "./lib/intent.js";
+import { VIDEOGEN_TOOLS } from "./lib/video-gen.js";
 import { excerpt, loadKnowledge, PLUGIN_ROOT } from "./lib/templates.js";
 import { readFileSync, existsSync } from "node:fs";
 import { join } from "node:path";
@@ -752,6 +753,9 @@ export const TOOLS = [
 
   // ── v2.0 Intent Router front door (lib/intent.js) ────────────────────────
   ...INTENT_TOOLS,
+
+  // ── v2.0 locked-character video generation (lib/video-gen.js) ────────────
+  ...VIDEOGEN_TOOLS,
 ];
 
 export function getTool(name) {
