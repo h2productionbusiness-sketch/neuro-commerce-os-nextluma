@@ -12,6 +12,7 @@ import { VIDEO_TOOLS, SOCIAL_SOURCES, ingestPlan, hookPerformance, contentScorec
 import { readinessScore, scoreSegments } from "./lib/persona-scoring.js";
 import { biblePlan, personaPlan } from "./lib/deckplan.js";
 import { n8nStatus, triggerWebhook, installGuide, N8N_ENV } from "./lib/n8n.js";
+import { STATE_TOOLS } from "./lib/state.js";
 import { excerpt, loadKnowledge, PLUGIN_ROOT } from "./lib/templates.js";
 import { readFileSync, existsSync } from "node:fs";
 import { join } from "node:path";
@@ -744,6 +745,9 @@ export const TOOLS = [
     },
     handler: async (a) => json(await triggerWebhook(a.webhook_url, a.payload)),
   },
+
+  // ── v2.0 State Machine enforcers (lib/state.js) ──────────────────────────
+  ...STATE_TOOLS,
 ];
 
 export function getTool(name) {
