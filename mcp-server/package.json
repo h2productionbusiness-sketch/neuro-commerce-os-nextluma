@@ -11,7 +11,8 @@
   "scripts": {
     "start": "node src/index.js",
     "selfcheck": "node src/index.js --selfcheck",
-    "ingest": "node --no-warnings src/ingest.js"
+    "ingest": "node --no-warnings src/ingest.js",
+    "neuro-cycle": "node --no-warnings -e \"import('./src/lib/neuroplasticity.js').then(m => console.log(JSON.stringify(m.runCycle(), null, 2)))\""
   },
   "engines": {
     "node": ">=18.0.0"

@@ -15,6 +15,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import { synapse } from "./synapse.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const PLUGIN_ROOT = path.resolve(__dirname, "..", "..", "..");
@@ -62,6 +63,7 @@ export function initRun({ client, blueprint = "standard-ecommerce" }) {
     }
   }
   state.history.push({ event: "run-initialized", client: state.engagement.client, blueprint, at: state.engagement.startedAt });
+  synapse.fire("run:initialized", { client: state.engagement.client, blueprint });
   return saveState(state);
 }
 
@@ -166,9 +168,15 @@ export function submitDeliverable({ step_id, summary, artifact_path = null }) {
   state.history.push({ event: "deliverable-accepted", step: step.id, at: step.submittedAt });
 
   const finished = state.currentStepIndex >= phase.steps.length;
+  synapse.fire("step:accepted", {
+    step: step.id,
+    client: state.engagement.client,
+    progress: `${state.currentStepIndex}/${phase.steps.length}`,
+  });
   if (finished) {
     state.engagement.completedAt = new Date().toISOString();
     state.history.push({ event: "phase-complete", phase: state.currentPhase, at: state.engagement.completedAt });
+    synapse.fire("phase:complete", { phase: state.currentPhase, client: state.engagement.client });
   }
   saveState(state);
 

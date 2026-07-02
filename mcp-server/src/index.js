@@ -54,6 +54,16 @@ if (process.argv.includes("--selfcheck")) {
   process.exit(0);
 }
 
+// v2.0 neuroplasticity: consolidate memory when the last cycle is > 24h old.
+// (stdio servers boot with each session — startup IS the nightly trigger.)
+try {
+  const { maybeRunCycle } = await import("./lib/neuroplasticity.js");
+  const cycle = maybeRunCycle();
+  if (cycle.ran) console.error(`Neuroplasticity cycle ran: deduped ${cycle.deduped}, pruned ${cycle.prunedOrphanChunks}.`);
+} catch (e) {
+  console.error("Neuroplasticity startup check skipped:", e.message);
+}
+
 const transport = new StdioServerTransport();
 await server.connect(transport);
 console.error("Neuro-Commerce OS MCP server running on stdio.");

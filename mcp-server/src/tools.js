@@ -15,6 +15,7 @@ import { n8nStatus, triggerWebhook, installGuide, N8N_ENV } from "./lib/n8n.js";
 import { STATE_TOOLS } from "./lib/state.js";
 import { INTENT_TOOLS } from "./lib/intent.js";
 import { VIDEOGEN_TOOLS } from "./lib/video-gen.js";
+import { NEURO_TOOLS } from "./lib/neuro-tools.js";
 import { excerpt, loadKnowledge, PLUGIN_ROOT } from "./lib/templates.js";
 import { readFileSync, existsSync } from "node:fs";
 import { join } from "node:path";
@@ -756,6 +757,9 @@ export const TOOLS = [
 
   // ── v2.0 locked-character video generation (lib/video-gen.js) ────────────
   ...VIDEOGEN_TOOLS,
+
+  // ── v2.0 NeuroSystem memory + consolidation (lib/neuro-tools.js) ─────────
+  ...NEURO_TOOLS,
 ];
 
 export function getTool(name) {
