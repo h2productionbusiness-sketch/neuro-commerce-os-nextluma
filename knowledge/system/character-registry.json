@@ -1,0 +1,29 @@
+{
+  "_readme": "Neuro-Commerce OS character registry (v2.0). Locked brand characters for consistent AI video generation: generate_locked_video(character_id, prompt) loads every image in `images`, converts them to Base64, and sends them as input_references to the video model so the character stays visually IDENTICAL across every ad, reel, and story. Drop 3–6 reference images per character (front, 3/4, profile, full-body, expression close-up) into the folder referenced by `images`. locked_traits are appended to every prompt as non-negotiable visual constraints.",
+  "version": 1,
+  "characters": {
+    "luma": {
+      "name": "Luma",
+      "role": "NextLuma brand avatar — the face of demo engagements and tutorials",
+      "description": "Confident, warm tech-consultant persona; mid-20s; modern minimal wardrobe in the NextLuma palette (Architect Navy suit, Cyber Cyan accent).",
+      "images": [
+        "knowledge/design/characters/luma/ref-front.png",
+        "knowledge/design/characters/luma/ref-three-quarter.png",
+        "knowledge/design/characters/luma/ref-profile.png"
+      ],
+      "locked_traits": [
+        "same face and hairstyle in every frame — no drift between shots",
+        "wardrobe: Architect Navy base with a single Cyber Cyan accent",
+        "lighting: cool premium-technical, never warm/golden",
+        "background: minimal architectural spaces from the NextLuma visual OS"
+      ],
+      "voice": {
+        "style": "clear, energetic, consultative",
+        "edge_tts_voice": "en-US-AriaNeural"
+      },
+      "default_model": "google/veo-3",
+      "created": "2026-07-02",
+      "notes": "SAMPLE character — replace the placeholder reference images with real renders before production use."
+    }
+  }
+}
