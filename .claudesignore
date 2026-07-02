@@ -1,0 +1,27 @@
+# ============================================================
+# NEURO-COMMERCE OS — TOKEN SHIELD (v2.0)
+# Heavy / raw assets Claude must never load into context.
+# Enforced by .claude/settings.json → permissions.deny Read rules
+# (this file is the human-readable manifest; keep both in sync).
+# ============================================================
+
+# Raw source documents — ingested into SQLite via mcp-server/src/ingest.js,
+# then queried through the RAG tools. Never read whole.
+*.docx
+*.pdf
+
+# Generated deliverables (decks, exports) — outputs, not inputs.
+output/
+
+# Raw document drop zone for the RAG pipeline.
+knowledge/raw_docs/
+
+# Packaged bundle (4.6 MB binary).
+*.mcpb
+
+# Generated PowerPoint decks.
+*.pptx
+
+# RAG / memory databases — accessed only through MCP tools.
+*.db
+*.sqlite

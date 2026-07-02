@@ -11,6 +11,22 @@ _nco_loose_backup_*/
 # Large prebuilt bundle (rebuild from source; keep repo lean)
 neuro-commerce-os.mcpb
 
+# TOKEN SHIELD (v2.0) — raw client docs & generated output stay local.
+# The repo is PUBLIC: raw_docs may contain proprietary client material
+# and must never be committed. output/ is regenerable.
+output/
+knowledge/raw_docs/
+*.docx
+*.pdf
+*.pptx
+
+# RAG / memory databases (rebuilt by ingest.js / runtime)
+*.db
+*.sqlite
+
+# Personal (machine-local) Claude Code settings — never commit
+.claude/settings.local.json
+
 # Logs
 *.log
 

@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "deny": [
+      "Read(./**/*.docx)",
+      "Read(./**/*.pdf)",
+      "Read(./**/*.pptx)",
+      "Read(./**/*.mcpb)",
+      "Read(./**/*.db)",
+      "Read(./**/*.sqlite)",
+      "Read(./output/**)",
+      "Read(./knowledge/raw_docs/**)"
+    ]
+  }
+}
