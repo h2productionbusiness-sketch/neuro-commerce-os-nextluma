@@ -17,6 +17,7 @@ import { INTENT_TOOLS } from "./lib/intent.js";
 import { VIDEOGEN_TOOLS } from "./lib/video-gen.js";
 import { NEURO_TOOLS } from "./lib/neuro-tools.js";
 import { UI_TOOLS } from "./lib/ui.js";
+import { buildScrapingPlan, extractUrls } from "./lib/scraper-router.js";
 import { excerpt, loadKnowledge, PLUGIN_ROOT } from "./lib/templates.js";
 import { readFileSync, existsSync } from "node:fs";
 import { join } from "node:path";
@@ -272,6 +273,7 @@ export const TOOLS = [
         location: { type: "string" },
         target_persona: { type: "string" },
         queries: { type: "array", items: { type: "string" }, description: "Optional explicit search queries" },
+        urls: { type: "array", items: { type: "string" }, description: "Optional explicit URLs to scrape (competitor sites, Maps places, social profiles) — routed per provider" },
       },
       required: ["industry"],
     },
@@ -286,10 +288,14 @@ export const TOOLS = [
           ];
       const results = [];
       for (const q of base.slice(0, 6)) results.push(await search(q, 8));
+      // v2.0 scraper routing (item 28): explicit URLs + URLs surfaced by search,
+      // each routed to its specialist provider (maps/social/web).
+      const scrapeTargets = [...(a.urls || []), ...extractUrls(results)];
       return json({
         provider: searchProvider(),
         industry: a.industry, location: a.location || null,
         searches: results,
+        scraper_routing: buildScrapingPlan(scrapeTargets),
         deliverables: ["competitor_matrix.md", "customer_signals.md", "congregations.md"],
         congregation_quality_criteria: "Activity(10) + Member Authenticity(10) + Relevance(10) + Size(10) = /40.",
       });

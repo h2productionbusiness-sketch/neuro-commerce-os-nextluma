@@ -1,4 +1,4 @@
-# 🧠 Neuro-Commerce OS · v1.8.2
+# 🧠 Neuro-Commerce OS · v2.0.0
 
 **A complete, self-contained business operating system for Claude — Diagnostic → Brand → Content → Ads → Growth.**
 Built by NextLuma Agency. Ships as a Claude Code plugin **and** a standalone MCP server, executes the
@@ -48,7 +48,16 @@ documents so deliverables are reproduced **exactly** as specified by NextLuma.
 
 ## The MCP server
 
-`neuro-commerce-os-mcp` exposes **26 tools**, **34 resources**, and **4 prompts**.
+`neuro-commerce-os-mcp` exposes **36 tools**, **41 resources**, and **4 prompts**.
+
+**New in v2.0** — the OS became an operating system in the literal sense:
+- **Token Shield** — raw `.docx`/`.pdf` sources are context-banned (deny rules) and git-banned; the **RAG pipeline** (`npm run ingest`) chunks them into a SQLite FTS5 `intelligence_graph`, queried by meaning.
+- **State Machine** — `initialize_os_session` → `request_next_step` → `submit_deliverable`: 18 locked Phase-1 steps, no skipping, no thin deliverables.
+- **Intent Router** — standard-ecommerce vs custom-blueprint, per-industry step emphasis, clarify flag on ambiguity.
+- **Character Registry** — `generate_locked_video`: OpenRouter `input_references` from registry images keep brand characters visually identical.
+- **NeuroSystem** — `store_learning` / `prime_context` / `override_memory` over `neuro-memory.db`, the **Synapse** event bus, and a startup-triggered neuroplasticity consolidation cycle.
+- **Zero-Command UI** — MCP Apps dashboards (`ui://neuro-commerce-os/*`): welcome dashboard, Action Cards, setup wizard (`save_os_configuration`), memory manager; `suggest_model_routing` cost/quality cards.
+- **Scraper routing** — market intelligence routes maps→Outscraper, social→Bright Data, web→AlterLab per URL.
 
 | # | Tool | Purpose |
 |---|------|---------|
@@ -106,7 +115,7 @@ All API keys are **optional** — with none set, every tool degrades gracefully 
 ```
 Then build the MCP server deps once:
 ```bash
-cd mcp-server && npm install && npm run selfcheck   # { ok: true, tools: 26, resources: 34, prompts: 4 }
+cd mcp-server && npm install && npm run selfcheck   # { ok: true, tools: 36, resources: 41, prompts: 4 }
 ```
 
 ## Usage

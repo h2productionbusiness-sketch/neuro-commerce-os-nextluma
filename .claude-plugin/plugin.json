@@ -1,7 +1,7 @@
 {
   "name": "neuro-commerce-os",
-  "version": "1.8.2",
-  "description": "Complete Business Operating System — Diagnostic → Brand → Content → Ads → Growth. Executes the full NextLuma 5-phase framework with 18 skills and a 22-agent crew (5 phase commanders + orchestrator + 16 sub-crews) (The Architect, Brand Architect, Content Engineer, Ads Engineer, Growth Orchestrator). Includes video/social diagnostics that drive installed video-analysis MCP tools to teardown reels (hook, retention, pacing, virality). Ships its own MCP server (26 tools) + local n8n automation (install, importable post-click pipeline, webhook triggers) + an automated Phase 1 orchestrator (guided interview, market research, persona readiness scoring, auto PowerPoint decks). Phase 1 delivered as NextLuma-styled PowerPoint decks and free-tool fallbacks.",
+  "version": "2.0.0",
+  "description": "Complete Business Operating System — Diagnostic → Brand → Content → Ads → Growth. Executes the full NextLuma 5-phase framework with 18 skills and a 22-agent crew (5 phase commanders + orchestrator + 16 sub-crews). v2.0: state-machine-enforced execution (initialize_os_session → request_next_step → submit_deliverable, 18 locked Phase-1 steps), intent routing (standard-ecommerce vs custom blueprint), SQLite FTS5 RAG memory with Token Shield (raw docx/pdf never enter context), locked-character video generation (OpenRouter input_references), NeuroSystem (store_learning / prime_context / override_memory + Synapse event bus + neuroplasticity cycle), and a Zero-Command MCP Apps UI (dashboards, Action Cards, setup wizard, model routing). Ships its own MCP server (36 tools) + local n8n automation + video/social reel diagnostics + NextLuma PowerPoint decks. Free-tool fallbacks throughout.",
   "author": {
     "name": "NextLuma Agency — System Architect"
   },
