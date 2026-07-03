@@ -2,8 +2,8 @@
   "dxt_version": "0.1",
   "name": "neuro-commerce-os",
   "display_name": "Neuro-Commerce OS",
-  "version": "1.8.2",
-  "description": "Complete Neuro-Commerce OS engine — 26 MCP tools driving the NextLuma 5-phase framework (Diagnostic → Brand → Content → Ads → Growth) plus video/social reel diagnostics, local n8n post-click automation, and NextLuma PowerPoint decks. Free-tool fallbacks built in.",
+  "version": "2.0.0",
+  "description": "Complete Neuro-Commerce OS engine — 36 MCP tools driving the NextLuma 5-phase framework (Diagnostic → Brand → Content → Ads → Growth): state-machine-enforced execution, SQLite FTS5 RAG memory, intent routing, locked-character video, NeuroSystem memory + Synapse, Zero-Command MCP Apps UI, scraper routing, video/social reel diagnostics, local n8n post-click automation, NextLuma PowerPoint decks. Free-tool fallbacks built in.",
   "author": {
     "name": "NextLuma Agency"
   },
@@ -21,6 +21,11 @@
         "RECRAFT_API_KEY": "",
         "LEONARDO_API_KEY": "",
         "SD_API_URL": "",
+        "OPENROUTER_API_KEY": "",
+        "OPENROUTER_VIDEO_MODEL": "",
+        "ALTERLAB_API_KEY": "",
+        "OUTSCRAPER_API_KEY": "",
+        "BRIGHTDATA_API_TOKEN": "",
         "META_ACCESS_TOKEN": "",
         "META_AD_ACCOUNT_ID": "",
         "N8N_BASE_URL": "http://localhost:5678",
@@ -42,6 +47,11 @@
     {"name": "score_social_content"}, {"name": "get_nextluma_design_system"},
     {"name": "get_phase1_intake"}, {"name": "score_persona_readiness"},
     {"name": "get_phase1_deck_plan"}, {"name": "install_n8n"},
-    {"name": "configure_n8n_webhook"}, {"name": "trigger_n8n_workflow"}
+    {"name": "configure_n8n_webhook"}, {"name": "trigger_n8n_workflow"},
+    {"name": "request_next_step"}, {"name": "submit_deliverable"},
+    {"name": "initialize_os_session"}, {"name": "generate_locked_video"},
+    {"name": "store_learning"}, {"name": "prime_context"},
+    {"name": "override_memory"}, {"name": "run_neuroplasticity_cycle"},
+    {"name": "save_os_configuration"}, {"name": "suggest_model_routing"}
   ]
 }
