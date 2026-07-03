@@ -15,6 +15,7 @@
  */
 
 import { initRun, requestNextStep, loadState, saveState } from "./state.js";
+import { checkSetup } from "./ui.js";
 
 /* ---------------------------------------------------------------------- */
 /* signal taxonomy (mirrors choice-architecture industry list)             */
@@ -145,10 +146,14 @@ export const INTENT_TOOLS = [
       });
       saveState(state);
 
+      const setup = checkSetup();
       return json({
         session: "initialized",
         client,
         intent,
+        ...(setup.setupNeeded
+          ? { setup: { missing: setup.missing, wizard: setup.wizard, note: setup.note } }
+          : {}),
         firstStep: requestNextStep(),
         protocol: [
           "1. request_next_step — get the ONE current step",

@@ -1,0 +1,36 @@
+<!doctype html>
+<!-- Neuro-Commerce OS · Setup Wizard (MCP App) — shown when required env keys are missing.
+     Host pushes {type:"render", data:{keys:[{name,label,configured,required,enables}]}} -->
+<html lang="en"><head><meta charset="utf-8"><title>OS Setup</title><style>
+  :root{--navy:#0B1E3C;--cyan:#4CD7FF;--gray:#6B7280;--grad:linear-gradient(90deg,#7B4DFF,#E056FD,#4CD7FF,#2F80ED)}
+  *{box-sizing:border-box;margin:0}body{font:14px/1.5 'Segoe UI',system-ui,sans-serif;background:var(--navy);color:#fff;padding:20px}
+  .brand{font-size:10px;letter-spacing:.18em;color:var(--cyan);text-transform:uppercase}
+  h1{font-size:20px;margin:2px 0 4px}h1 b{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .sub{color:#9CA3AF;font-size:12px;margin-bottom:14px}
+  .key{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);border-radius:10px;padding:12px;margin-bottom:8px}
+  .key .row{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}
+  .key b{font-size:13px}.st{font-size:10px;letter-spacing:.1em;padding:2px 8px;border-radius:10px;text-transform:uppercase}
+  .ok{background:rgba(76,215,255,.15);color:var(--cyan)}.miss{background:rgba(255,77,141,.18);color:#FF4D8D}
+  .key p{font-size:11px;color:#9CA3AF;margin-bottom:8px}
+  .key input{width:100%;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);border-radius:6px;color:#fff;padding:8px;font-size:12px}
+  .foot{margin-top:14px;text-align:center}
+  .foot button{background:var(--grad);border:0;color:#fff;font-weight:600;padding:10px 26px;border-radius:8px;cursor:pointer}
+  .note{font-size:11px;color:var(--gray);margin-top:8px}
+</style></head><body>
+  <div class="brand">NextLuma · Neuro-Commerce OS</div>
+  <h1>Setup <b>Wizard</b></h1>
+  <div class="sub">Every key is optional — the OS degrades gracefully — but each one you add unlocks a live capability.</div>
+  <div id="keys"></div>
+  <div class="foot"><button onclick="save()">💾 Save configuration</button>
+    <div class="note">Keys are written to <code>.mcp.json</code> via <code>save_os_configuration</code> — values never appear in chat.</div></div>
+<script>
+  let KEYS=[];
+  function render(d){if(!d||!d.keys)return;KEYS=d.keys;
+    document.getElementById('keys').innerHTML=d.keys.map(k=>
+      '<div class="key"><div class="row"><b>'+k.name+'</b><span class="st '+(k.configured?'ok':'miss')+'">'+(k.configured?'configured':'missing')+'</span></div>'+
+      '<p>'+(k.enables||'')+'</p>'+(k.configured?'':'<input type="password" id="in-'+k.name+'" placeholder="paste '+k.name+'…">')+'</div>').join('');}
+  function save(){const values={};for(const k of KEYS){const el=document.getElementById('in-'+k.name);if(el&&el.value.trim())values[k.name]=el.value.trim();}
+    parent.postMessage({type:'intent',intent:'tool',tool:'save_os_configuration',params:{keys:values}},'*');}
+  window.addEventListener('message',e=>{if(e.data&&e.data.type==='render')render(e.data.data)});
+  parent.postMessage({type:'ready',app:'setup-wizard'},'*');
+</script></body></html>
