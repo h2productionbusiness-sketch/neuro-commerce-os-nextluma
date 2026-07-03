@@ -18,6 +18,8 @@ import { VIDEOGEN_TOOLS } from "./lib/video-gen.js";
 import { NEURO_TOOLS } from "./lib/neuro-tools.js";
 import { UI_TOOLS } from "./lib/ui.js";
 import { buildScrapingPlan, extractUrls } from "./lib/scraper-router.js";
+import { CLASSIFIER_TOOLS } from "./lib/classifier.js";
+import { DOCTRINE_TOOLS } from "./lib/doctrine-loader.js";
 import { excerpt, loadKnowledge, PLUGIN_ROOT } from "./lib/templates.js";
 import { readFileSync, existsSync } from "node:fs";
 import { join } from "node:path";
@@ -770,6 +772,10 @@ export const TOOLS = [
 
   // ── v2.0 Zero-Command UI: config + model routing (lib/ui.js) ─────────────
   ...UI_TOOLS,
+
+  // ── v3.0 Foundation: classifier + doctrine loader ─────────────────────────
+  ...CLASSIFIER_TOOLS,
+  ...DOCTRINE_TOOLS,
 ];
 
 export function getTool(name) {
